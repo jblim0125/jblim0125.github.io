@@ -165,7 +165,7 @@ public class User {
 
 
 | JSON Schema rule | Supported | Since | Note |
-| ---------------- |:---------:|:-----:|------|
+| --------------- |:---------:|:-----:|------|
 | [type (Simple)](#type) | <font color="green">Yes</font> | 0.1.0 | |
 | type (Union)| <font color="red">No</font> | | |
 | [properties](#properties) | <font color="green">Yes</font> | 0.1.0 | |
@@ -191,7 +191,7 @@ public class User {
 | disallow | <font color="red">No</font> | | |
 | [extends](#extends) | <font color="green">Yes</font> | 0.1.8 | |
 | id | <font color="red">No</font> | | |
-| [$ref](#$ref) | <font color="green">Yes</font> | 0.1.6 | Supports absolute, relative, slash & dot delimited fragment paths, self-ref |
+| [$ref](#ref) | <font color="green">Yes</font> | 0.1.6 | Supports absolute, relative, slash & dot delimited fragment paths, self-ref |
 | $schema | <font color="red">No</font> | | |
 
 ### Type
@@ -577,7 +577,7 @@ and
 참고: JSON 스키마의 extends 규칙은 스키마 또는 스키마 배열을 허용합니다.
 `jsonschema2pojo`는 단일 스키마 변형만 지원합니다.
 
-### $Ref
+### ref
 
 '$ref' 규칙은 스키마가 예상되는 곳 어디에서나 사용할 수 있습니다. 즉, 스키마 문서의 루트,
 속성 정의의 일부, 배열 유형에 대한 항목 정의의 일부, additionalProperties 정의의 일부로
