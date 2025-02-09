@@ -438,7 +438,7 @@ Docker - Jupyter 활용에 대해서는 레퍼런스를 참고한다.
     plt.show()
     ```
 
-    ![alt text](/assets/images/nltk/histogran.png)
+    ![alt text](/assets/images/nltk/histogram.png)
 
 
 ### 영어 분용어 사전 활용과 한글 불용어 처리

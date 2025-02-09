@@ -12,7 +12,7 @@ category: 2025
 
 1. Auth - 인증 관련  
   우선 간단하게 `Host`와 `Client ID, Secret` 정보를 넣어 보았다.  
-  ![alt text](image.png)  
+ 
 2. Route - 라우팅 관련  
   인증 기능 개발 완료 후 추가 진행  
 
