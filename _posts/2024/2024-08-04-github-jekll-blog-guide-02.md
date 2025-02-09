@@ -384,7 +384,7 @@ VSCode 를 사용해 저장소에 코드를 업로드 해보겠습니다.
 
 다음 사이트들에서 원하는 테마를 찾는다.  
 [jamstackthemes.dev](https://jamstackthemes.dev/ssg/jekyll/)  
-[jekyllthemes.org](http://jekyllthemes.org/)  
+[jekyllthemes.org](https://jekyllthemes.org/)  
 [jekyllthemes.io](https://jekyllthemes.io/)  
 
 ### 6.2. 적용
