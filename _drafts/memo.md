@@ -68,15 +68,15 @@
   - 31일  
     - [x] openmetadata 1.6.x 버전 소스코드 확인  
     - [x] github 소스코드 정리 = 2월 중 점검 예정 = 관련 메일 요청 필요(to 전민철 팀장님)  
-      - [ ] 어떤내용의 점검인지 확인 필요
+      - [x] 어떤내용의 점검인지 확인 필요
       - [x] Spec - JSON
       - [x] LISENCE
       - [x] NOTICE
-      - [ ] README
-      - [ ] Sources
-        - [ ] 소스 코드 상에서 collate 삭제가 아닌 Mobigen 정보 추가하기
-        - [ ] airflow-api  
-        - [ ] metdata  
+      - [x] README
+      - [x] Sources
+        - [x] 소스 코드 상에서 collate 삭제가 아닌 Mobigen 정보 추가하기
+        - [x] airflow-api  
+        - [x] metdata  
 - 2025년 2월
   - 3일  
     - [x] github 소스코드 정리 = 2월 중 점검 예정 = 관련 메일 요청 필요(to 전민철 팀장님)  
@@ -88,15 +88,19 @@
         - [x] 소스 코드 상에서 collate 삭제가 아닌 Mobigen 정보 추가하기
         - [x] airflow-api  
         - [x] metdata  
-  - 4일  
+  - 4일 ->
     - [x] 공개SW 가이드 확인  
     - [ ] 설계  
       - [ ] 유스케이스  
         - [x] 회원 및 권한
-        - [ ] 저장소 가상화
-          - [ ] 기본
-          - [ ] 설정
-        - [ ] 모니터링
+        - [x] 저장소 가상화
+          - [x] 기본
+          - [x] 설정
+        - [x] 모니터링
+        - [x] 파이프라인
+        - [ ] 그 외 많은데...
+        - [ ] 데이터 탐색
+        - [ ] 데이터 검색
       - [ ] 시퀀스  
       - [ ] 인터페이스  
       - [ ] 클래스  
@@ -104,6 +108,40 @@
       - [ ] 단위 시험  
       - [ ] 통합 시험  
     - [ ] 개발 : Openmetadata Server -> New Datafabric  
+  - 10일 ->
+    - [x] WBS - 승환 책임, 유경 책임 분량을 완료 됨.
+  - 11일 ->
+    - [ ] OpenVDAP 을 위한 OpenMetadata Schema 벤치마킹  
+      - [ ] 저장소 가상화  
+  - 12일 ->
+    - [x] OpenVDAP 을 위한 OpenMetadata Schema 벤치마킹  
+      - [x] 저장소 가상화  
+  - 13일 ->
+    - [ ] OpenVDAP - 저장소 가상화 포팅
+  - 18일 ->
+    - [ ] WBS 완료
+      - [ ] WBS - 기존 기능의 업데이트 반영
+    - [ ] OpenVDAP - 저장소 가상화 포팅
+    - [x] 사용 가이드 작성 요청 -> 사용성 테스트 문서 받음.
+  - 19일 ->
+    - [ ] WBS 완료
+      - [ ] WBS - 기존 기능의 업데이트 반영
+    - [ ] OpenVDAP - 저장소 가상화 포팅
+    - [x] 사용 가이드 작성 요청
+  - 20일 ->
+    - [ ] OpenVDAP - 저장소 가상화 포팅
+  - 21일 ->
+    - [ ] OpenVDAP - StorageService
+  - 24일 ->
+    - [ ] OpenVDAP - Classification
+  - 25일 ->
+    - [ ] OpenVDAP - Classification
+  - 26일 ->
+    - [ ] OpenVDAP - Classification
+    - [ ] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
+  - 27일 ->
+    - [ ] OpenVDAP - Classification
+    - [ ] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
 
 ## 데이터 패브릭
 
