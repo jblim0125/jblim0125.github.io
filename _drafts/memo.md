@@ -132,16 +132,19 @@
     - [ ] OpenVDAP - 저장소 가상화 포팅
   - 21일 ->
     - [ ] OpenVDAP - StorageService
+      - [ ] 기본 base 작업 후 Tag 와 같은 연관 데이터로 인해 중지
   - 24일 ->
     - [ ] OpenVDAP - Classification
   - 25일 ->
     - [ ] OpenVDAP - Classification
   - 26일 ->
     - [ ] OpenVDAP - Classification
-    - [ ] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
+    - [x] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
   - 27일 ->
     - [ ] OpenVDAP - Classification
-    - [ ] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
+    - [x] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
+  - 27일 ->
+    - [ ] OpenVDAP - Classification, Tag
 
 ## 데이터 패브릭
 
