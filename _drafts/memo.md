@@ -145,6 +145,52 @@
     - [x] List Method를 위한 Page와 관련 CommonResponse 의 변경 필요.
   - 27일 ->
     - [ ] OpenVDAP - Classification, Tag
+      - [ ] entityRelationship 처리
+- 2025년 3월
+  - 4일 ->
+    - [ ] OpenVDAP - Classification, Tag
+  - 5일 ->
+    - [ ] OpenVDAP - Classification, Tag, Relationship, Extension
+      - [ ] bulk add, remove( for tag set/unset to dataassets )
+      - [x] Relationship : Classification - Tag
+      - [ ] Extension : VersionHistory
+      - [ ] Usage Count :
+      - [ ] 유닛테스트
+        - [ ] classification
+          - [x] List
+          - [x] Get
+            - [x] ID
+            - [x] Name
+          - [x] Create
+          - [x] Update
+            - [ ] Change Description
+            - [ ] Extension : version history
+          - [ ] Version
+            - [ ] Get
+            - [ ] History
+          - [x] Delete
+        - [ ] Tag
+          - [x] List
+          - [x] Get
+            - [x] ID
+            - [x] Name
+          - [x] Usage count
+          - [x] Create
+          - [x] Update
+            - [x] Change Description
+            - [ ] Extension : version history
+          - [ ] Version
+            - [ ] Get
+            - [ ] History
+          - [x] Delete
+  - 6일 ->
+    - [x] 데이터패브릭 수행 관련 방안과 방안 별 리스크 정리
+  - 7일 ->
+    - [x] 데이터패브릭 수행 관련 방안과 방안 별 리스크 회의
+      - [x] 메타데이터 관리/탐색/검색 부분의 경우 지속적으로 사용되어야 함으로 개발 진행
+        - 다양한 과제들에서 메타데이터 관리(저장)/탐색/검색 부분에 대해서 수요가 있음  
+      - [x] 4월말을 목표로 1차 베타 버전을 완성  
+      - [x] 성능시험은 3차년도 4차년도 모두 수행  
 
 ## 데이터 패브릭
 
