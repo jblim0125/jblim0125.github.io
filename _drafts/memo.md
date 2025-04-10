@@ -3,6 +3,23 @@
 - 매월 업무 등록 29일  
 - 휴가가 예정된 경우 일주일 전  
 
+- 내 투입 프로젝트 비율
+  - 데이터패브릭 90%
+  - 재난안전 10%
+- 프로젝트 수행 주체가 변경될 경우
+  - 그래피오 100%
+
+- 업무회의
+  - 월요일 간략하게 전체
+  - 수, 금 회의의 경우 프로젝트 별(내부, 외부) 진행
+
+- 지라 프로젝트 관리
+  - 2주가 제일 긴 업무 단위임.
+
+- 지라 사용 시 주의
+  - 에픽, 스토리는 일정이 없으나, 있더라도 2주가 넘으면 안 됨.
+  - Task는 Max 3일
+
 ## 회사 업무 일지
 
 - 2025년 1월
@@ -111,22 +128,22 @@
   - 10일 ->
     - [x] WBS - 승환 책임, 유경 책임 분량을 완료 됨.
   - 11일 ->
-    - [ ] OpenVDAP 을 위한 OpenMetadata Schema 벤치마킹  
-      - [ ] 저장소 가상화  
+    - [x] OpenVDAP 을 위한 OpenMetadata Schema 벤치마킹  
+      - [x] 저장소 가상화  
   - 12일 ->
     - [x] OpenVDAP 을 위한 OpenMetadata Schema 벤치마킹  
       - [x] 저장소 가상화  
   - 13일 ->
     - [ ] OpenVDAP - 저장소 가상화 포팅
   - 18일 ->
-    - [ ] WBS 완료
-      - [ ] WBS - 기존 기능의 업데이트 반영
-    - [ ] OpenVDAP - 저장소 가상화 포팅
+    - [x] WBS 완료
+      - [x] WBS - 기존 기능의 업데이트 반영
+    - [x] OpenVDAP - 저장소 가상화 포팅
     - [x] 사용 가이드 작성 요청 -> 사용성 테스트 문서 받음.
   - 19일 ->
-    - [ ] WBS 완료
-      - [ ] WBS - 기존 기능의 업데이트 반영
-    - [ ] OpenVDAP - 저장소 가상화 포팅
+    - [x] WBS 완료
+      - [x] WBS - 기존 기능의 업데이트 반영
+    - [x] OpenVDAP - 저장소 가상화 포팅
     - [x] 사용 가이드 작성 요청
   - 20일 ->
     - [ ] OpenVDAP - 저장소 가상화 포팅
@@ -148,26 +165,26 @@
       - [ ] entityRelationship 처리
 - 2025년 3월
   - 4일 ->
-    - [ ] OpenVDAP - Classification, Tag
+    - [x] OpenVDAP - Classification, Tag
   - 5일 ->
     - [ ] OpenVDAP - Classification, Tag, Relationship, Extension
       - [ ] bulk add, remove( for tag set/unset to dataassets )
       - [x] Relationship : Classification - Tag
-      - [ ] Extension : VersionHistory
-      - [ ] Usage Count :
-      - [ ] 유닛테스트
-        - [ ] classification
+      - [x] Extension : VersionHistory
+      - [x] Usage Count :
+      - [x] 유닛테스트
+        - [x] classification
           - [x] List
           - [x] Get
             - [x] ID
             - [x] Name
           - [x] Create
           - [x] Update
-            - [ ] Change Description
-            - [ ] Extension : version history
-          - [ ] Version
-            - [ ] Get
-            - [ ] History
+            - [x] Change Description
+            - [x] Extension : version history
+          - [x] Version
+            - [x] Get
+            - [x] History
           - [x] Delete
         - [ ] Tag
           - [x] List
@@ -178,10 +195,10 @@
           - [x] Create
           - [x] Update
             - [x] Change Description
-            - [ ] Extension : version history
-          - [ ] Version
-            - [ ] Get
-            - [ ] History
+            - [x] Extension : version history
+          - [x] Version
+            - [x] Get
+            - [x] History
           - [x] Delete
   - 6일 ->
     - [x] 데이터패브릭 수행 관련 방안과 방안 별 리스크 정리
@@ -191,6 +208,47 @@
         - 다양한 과제들에서 메타데이터 관리(저장)/탐색/검색 부분에 대해서 수요가 있음  
       - [x] 4월말을 목표로 1차 베타 버전을 완성  
       - [x] 성능시험은 3차년도 4차년도 모두 수행  
+  - 2주차
+    - [x] Classification
+    - [x] Tag
+    - [x] Relationship
+    - [x] TagUsage
+  - 3주차
+    - [x] Classification
+    - [x] Tag
+    - [x] Relationship
+    - [x] TagUsage
+    - [x] Extension
+  - 4주차
+    - [x] Storage Virtualization
+- 2025년 4월
+  - 1주차
+    - [ ] Storage Virtualization - 유닛테스트
+      - [x] Create
+        - [x] With Tag
+        - [x] With Owner
+        - [ ] With Pipeline
+      - [x] List
+      - [x] GetByID
+      - [x] GetByName
+      - [x] With Fields
+        - [x] Tag
+        - [x] Owner
+        - [ ] Pipeline
+      - [x] Update
+      - [x] Patch
+      - [x] Delete
+        - [ ] Delete Children
+  - 2주차
+    - [x] DataModel 설계
+    - [ ] DataModel 검색 엔진 저장 구조 설계 - For Search Filter
+    - [ ] 국책과제
+      - [ ] 8월 개발 완료
+      - [ ] Workflow - 5월말 : 승환
+        - 특허/기술문서(5월말)/논문(5월말) : 승환
+  - 3주차, 4주차
+    - [ ] DataModel 기능 개발
+    - [ ] 파이프라인 및 외부 연동(Airflow, SearchEngine)
 
 ## 데이터 패브릭
 
@@ -234,5 +292,27 @@
 
 - 기록  
   - [ ] 25년 2월 1일(60알)  
+  - [ ] 25년 4월 5일(60알)
 - 다음 일정  
-  - [ ] 25년 3월 29일  
+  - [ ] 25년 3월 29일 - 아무래도 몇 번 잊어 버린 듯
+
+### 면접
+
+다양한 웹 기반 프로젝트를 겪은 경험이 있어 웹서버 개발자 뽑으면 좋겠다고 생각함.  
+기술적인 부분에 대해서 애매하다.
+네이버 OCR 의 경우 템플릿(병원 별 동일 서식) 기반으로 처리를 수행
+
+프레임워크가 Eclipse로 있는데 Eclipse 재단의 자바 라이브러리를 활용한 것인가요?
+프로젝트 투입 인원은 어떻게 되나요?
+사원정보 관리 기능과 효율적인 데이터 관리 지원은 어떤 연관이 있는 건가요?
+엑셀파일을 활용함에 있어 요구사항과 어떤 문제들이 있었나요?
+발송된 문자 메시지의 상태, 수신자, 발송 시간 등을
+조회하고 검색할 수 있는 필터링 기능 추가
+
+본인 인증을 통해 그룹별 연락처를 마이페이지
+내 MY 주소록에 저장하고 관리하는 기능 구현
+본인 인증 기능을 구현하신건가요?
+어떤 방식의 본인인증인가요?
+
+SI 형태의 업무를 주로 하셨는데 업무 전환 과정에서 어떻게 하셨는지
+끊임없이 업무가 이어져왔을 것으로 예상되는데
