@@ -634,18 +634,3 @@
         ln -s {OPEN_METADATA}/openmetadata-airflow-apis/openmetadata_managed_apis {PYTHON_PKG}/openmetadata_managed_apis
         ln -s {OPEN_METADATA}/ingestion/src/metadata {PYTHON_PKG}/metadata
         ```
-
-
-The necessary bits to build these optional modules were not found:
-_bz2                  _gdbm                 _sqlite3
-_tkinter              _uuid                 readline
-To find the necessary bits, look in setup.py in detect_modules() for the module's name.
-
-
-The following modules found by detect_modules() in setup.py, have been
-built by the Makefile instead, as configured by the Setup files:
-_abc                  pwd                   time
-
-
-Failed to build these modules:
-_ctypes               _hashlib              _ssl
