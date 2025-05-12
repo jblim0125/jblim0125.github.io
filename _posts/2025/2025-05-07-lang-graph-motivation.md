@@ -2,7 +2,7 @@
 layout: post
 title: LangGraph Motivation
 author: jblim0125
-date: 2025-05-08
+date: 2025-05-07
 category: 2025
 tags: [LangGraph]
 ---
