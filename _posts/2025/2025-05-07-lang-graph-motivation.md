@@ -14,12 +14,12 @@ tags: [LangGraph]
 ### LangChain 소개 및 LangGraph 개발 동기
 
 1. LLM(대형 언어 모델)의 한계
-    ![alt text](/assets/images/langgraph-motivation/image.png)
+    ![alt text](/assets/images/langgraph/langgraph-motivation/image.png)
     * 단일 언어 모델은 기능에 제약이 있습니다.
     * 도구 사용, 외부 컨텍스트 활용, 다단계 작업 등의 워크플로우를 스스로 수행하기 어렵습니다.
 
 2. 그래서 많은 LLM 애플리케이션은 `Control Flow`을 사용합니다
-    ![alt text](/assets/images/langgraph-motivation/image-1.png)
+    ![alt text](/assets/images/langgraph/langgraph-motivation/image-1.png)
     LLM 호출 전후로 동작(툴 호출, 검색 등)을 추가하여 더 많은 일을 할 수 있도록 합니다.
     이러한 흐름은 “체인(chain)”이라고 불리며, 고정된 워크플로우를 나타냅니다.
     > 참고 링크
@@ -29,7 +29,7 @@ tags: [LangGraph]
 3. 체인의 특징
     * 항상 같은 방식으로 실행되기 때문에 '신뢰성(reliability)'이 높습니다.
     * 하지만, 우리가 진짜 원하는 건 LLM 시스템이 스스로 제어 흐름을 결정하는 것입니다.
-    ![alt text](/assets/images/langgraph-motivation/image-2.png)
+    ![alt text](/assets/images/langgraph/langgraph-motivation/image-2.png)
 
 ### Agent = LLM이 결정하는 제어 흐름
 
@@ -40,7 +40,7 @@ tags: [LangGraph]
       * 기억을 가지는 에이전트
       * 사람의 개입이 있는 에이전트(HITL)
       * 맞춤형 에이전트 등
-    ![alt text](/assets/images/langgraph-motivation/image-3.png)
+    ![alt text](/assets/images/langgraph/langgraph-motivation/image-3.png)
 
 ### LangGraph의 역할
 
@@ -50,4 +50,4 @@ tags: [LangGraph]
       * 개발자가 일부 제어 흐름을 고정하고,
       * 나머지는 LLM이 결정하도록 구성합니다.
 
-    ![alt text](/assets/images/langgraph-motivation/image-4.png)
+    ![alt text](/assets/images/langgraph/langgraph-motivation/image-4.png)

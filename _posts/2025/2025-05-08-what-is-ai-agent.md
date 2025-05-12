@@ -14,7 +14,7 @@ tags: [LangGraph]
 원 제목은 'What is an AI Agent?` 입니다.
 
 아래 그림(OpenAI에서 정의한 AI의 진화 5단계)의 Agent(lv3)와는 차이가 있습니다.
-![alt text](/assets/images/what-is-ai-agent/image-01.png)
+![alt text](/assets/images/langgraph/what-is-ai-agent/image-01.png)
 본문 내용에서도 `Agnet`에 대해 기술적인 해석으로 말하고 있습니다.
 
 제가 느끼는 바는 `Agent` 용어를 사용하여 `LangGraph`, `LangChain`, `LangSmith` 에 대한 홍보-이를 이용해
@@ -48,7 +48,7 @@ tags: [LangGraph]
 저는 작년에 LLM 시스템에 대한 TED 강연을 했고, 아래 슬라이드를 사용하여 LLM 애플리케이션에 존재하는 다양한
 수준의 자율성에 대해 설명했습니다.
 
-![alt text](/assets/images/what-is-ai-agent/image-02.png)
+![alt text](/assets/images/langgraph/what-is-ai-agent/image-02.png)
 
 LLM이 시스템의 작동 방식을 결정할수록 시스템은 더욱 수준 높은 "에이전트"가 됩니다.
 

@@ -57,7 +57,7 @@ Onyx는 다음과 같은 목표를 설정하여 엔터프라이즈 검색 및 �
 
 대략적으로, 우리가 목표로 삼은 논리적 흐름은 다음과 같습니다.
 
-![alt text](/assets/images/langgraph-onyx/image01.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image01.png)
 
 이 흐름의 주요 측면과 요구 사항은 다음과 같습니다.
 
@@ -188,7 +188,7 @@ LangGraph를 지지하는 요인
 상황에서 기본값을 설정하면 감지하기 어려운 의도치 않은 동작이 발생할 수 있습니다. 예를 들어 다음과
 같은 문제가 있는 구성을 생각해 보겠습니다.
 
-![alt text](/assets/images/langgraph-onyx/image02.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image02.png)
 
 여기서 메인 그래프 노드 A는 'my_key'를 'my_data'로 설정합니다. 이 값은 나중에 내부 서브그래프 노드에서
 사용되도록 의도된 값입니다. 하지만 이 예제에서는 (의도적으로) 해당 키를 외부 서브그래프에 추가하지 않았습니다.
@@ -197,12 +197,12 @@ LangGraph를 지지하는 요인
 
 대신 조심해서 다음과 같이 내부 서브그래프의 'my_key'에 기본값을 설정하지 않았더라면 좋았을 텐데요.
 
-![alt text](/assets/images/langgraph-onyx/image03.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image03.png)
 
 그러면 'my_key'에 내부 하위 그래프에 대한 입력 값이 없으므로 오류가 발생합니다. 그런 다음, 외부 하위
 그래프에서 누락된 상태를 추가하여 적절한 구성을 얻습니다.
 
-![alt text](/assets/images/langgraph-onyx/image04.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image04.png)
 
 물론 이는 기존의 중첩 함수와 크게 다르지 않지만, 저희 경험상 LangGraph 환경에서는 이러한 문제를 파악하기가
 조금 더 어렵습니다.
@@ -224,7 +224,7 @@ LangGraph를 지지하는 요인
 각 문서가 질문과의 관련성을 갖는지 테스트하는 것입니다. 이러한 테스트는 병렬로 수행해야 하며,
 `LangGraph`의 '맵리듀스 브랜치'는 이러한 상황에서 매우 효과적입니다.
 
-![alt text](/assets/images/langgraph-onyx/image05.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image05.png)
 
 위에서 **굵은 글씨로 표시된 상태 키**는  팬아웃 중에 업데이트되는 키이고, 이탤릭체로 표시된 키는
 팬아웃 노드 내부 변수를 나타냅니다.
@@ -237,7 +237,7 @@ LangGraph를 지지하는 요인
 관점에서 왼쪽과 오른쪽에 노드가 하나씩 존재하게 되며, B_2의 실행은 C가 완료될 때까지 기다리지 않습니다.
 (참고: 부모 그래프의 노드 내에서 서브그래프를 호출하는 대신, 항상 부모 그래프 내의 노드로 서브그래프를 사용합니다.)
 
-![alt text](/assets/images/langgraph-onyx/image06.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image06.png)
 
 **재사용 가능한 구성 요소:  하위 그래프입니다!**  
 
@@ -266,7 +266,7 @@ LangGraph를 지지하는 요인
 마지막으로, 현재 그래프는 다음과 같습니다(복잡성을 제한하기 위해 X선 수준을 1로 설정했으므로 여러 노드가 실제로
 하위 그래프이며 추가 하위 그래프를 포함할 수 있음).
 
-![alt text](/assets/images/langgraph-onyx/image07.png)
+![alt text](/assets/images/langgraph/langgraph-onyx/image07.png)
 
 이 흐름은 처음에 설명한 논리적 흐름과 매우 유사하며, 에이전트 검색이 선택되지 않은 경우 기본 검색 흐름을 용이하게 하기 위한 몇 가지 추가 사항이 있다는 것이 분명합니다.
 
