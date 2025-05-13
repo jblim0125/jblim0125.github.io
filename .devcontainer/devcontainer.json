@@ -26,5 +26,5 @@
       ]
     }
   },
-  "appPort": [4000]
+  "forwardPorts": [4000]
 }
