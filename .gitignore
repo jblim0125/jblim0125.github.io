@@ -22,6 +22,11 @@ package-lock.json
 !.vscode/extensions.json
 !.vscode/tasks.json
 
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
 # Misc
 _sass/vendors
 assets/js/dist

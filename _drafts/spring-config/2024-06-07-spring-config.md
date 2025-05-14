@@ -10,7 +10,7 @@ category: 2024
 
 현재 플랫폼팀에서는 Spring Cloud Config 기능을 커스터마이징하여 사용하고 있습니다.
 
-![기본구조](image.png)
+![기본구조](/assets/images/spring/config/image.png)
 
 ### Spring Cloud Config Server  
 
