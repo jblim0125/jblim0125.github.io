@@ -13,7 +13,7 @@ category: 2024
 
 ## How It Works
 
-![diagram](/assets/images/gateway/spring-gateway-diagram.png)
+![diagram](/assets/images/spring/gateway/spring-gateway-diagram.png)
 
 1. Client  
 2. HttpWebHandlerAdapter  

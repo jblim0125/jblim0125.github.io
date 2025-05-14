@@ -14,7 +14,7 @@ JWT 적용을 위해 자료들을 찾아보는 과정에서 Spring Cloud Gateway
 
 ## API 게이트웨이
 
-![api_gateway-01](/assets/images/gateway/gateway-01.png)
+![api_gateway-01](/assets/images/spring/gateway/gateway-01.png)
 
 마이크로 서비스 아키텍처(Micro Service Architecture) 환경에서 많은 서비스들의 엔드포인트를 관리하는 데 있어서 어려움이 생기고,
 또 각 서비스마다 공통적으로 들어가는 기능(ex 인증/인가, 로깅 등)들을 중복으로 개발해야 한다는 문제점이 발생합니다.
@@ -47,7 +47,7 @@ Kong, Tyk, KrakenD, Apache APISIX API Gateway, Spring Cloud Gateway, Netflix Zuu
 1. 작동 원리  
 다음 다이어그램은 Spring Cloud Gateway의 작동 방식에 대한 개념도이다.  
 
-![spring-cloud-gateway](/assets/images/gateway/gateway-02.png)
+![spring-cloud-gateway](/assets/images/spring/gateway/gateway-02.png)
 
 > 필터가 점선으로 구분된 이유:  
 > 클라이언트 요청이 전송되기 전 -> "Pre Filter Chain"  

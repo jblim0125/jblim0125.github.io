@@ -59,7 +59,7 @@ Realm을 만들기 위한 단계는 다음과 같습니다.
 2. 상단의 Realm 선택 영역을 선택하고, Realm 생성을 클릭합니다.  
 3. Realm 이름 필드에 'test'을 입력합니다.  
 4. 생성을 클릭합니다.  
-![create-realm](/assets/images/gateway/04/create-realm.png)
+![create-realm](/assets/images/spring/gateway/04/create-realm.png)
 
 #### 5. 사용자 생성  
 
@@ -67,13 +67,13 @@ Realm을 만들기 위한 단계는 다음과 같습니다.
 2. 좌측상단의 master를 클릭하여 'test' realm 으로 이동합니다.  
 3. 좌측 패널의 Users - Create 를 클릭한다.  
 4. 다음과 같이 아이디와 성, 이름을 입력하고 Create 를 클릭한다.  
-![add-user](/assets/images/gateway/04/add-user.png)
+![add-user](/assets/images/spring/gateway/04/add-user.png)
 5. Credential - Set Password 를 클릭한다.  
 6. 패스워드를 입력하고 Temporary 를 off 한다.  
-![set-password](/assets/images/gateway/04/set-password.png)
+![set-password](/assets/images/spring/gateway/04/set-password.png)
 7. 관리자 콘솔 로그아웃한다.
 8. (`localhost:9090/realms/test/account/`)에서 로그인 되는지 확인한다.  
-![login-success](/assets/images/gateway/04/login-personal-info.png)
+![login-success](/assets/images/spring/gateway/04/login-personal-info.png)
 
 #### 6. 클라이언트 생성
 
@@ -85,13 +85,13 @@ Realm을 만들기 위한 단계는 다음과 같습니다.
     Client ID: gateway  
     Name: gateway  
     Description: Testing the integration of spring cloud gateway and keycloak  
-![create-client-01](/assets/images/gateway/04/create-client-01.png)
+![create-client-01](/assets/images/spring/gateway/04/create-client-01.png)
 5. Capability Config를 설정합니다.  
-![capability-set](/assets/images/gateway/04/capability-set.png)
+![capability-set](/assets/images/spring/gateway/04/capability-set.png)
 6. Login 설정 후 save를 클릭하여 클라이언트를 생성합니다.  
-![create-client-02](/assets/images/gateway/04/create-client-02.png)
+![create-client-02](/assets/images/spring/gateway/04/create-client-02.png)
 7. credential 란으로 이동하여 client secret 을 확인합니다.  
-![client-secret](/assets/images/gateway/04/client-secret.png)
+![client-secret](/assets/images/spring/gateway/04/client-secret.png)
 
 ### 3. 권장 성능 사양
 
@@ -155,9 +155,9 @@ SpringBoot - Keycloak 연동을 위해 필요한 정보 설정
 1. keycloak 관지 콘솔에 접속  
 2. 좌측 패널에서 Realm settings 클릭  
 3. 다음 사진에서 endpints 중 `OpenID Endpoint Configuration` 클릭  
-![endpoint-config](/assets/images/gateway/04/endpoint-config.png)
+![endpoint-config](/assets/images/spring/gateway/04/endpoint-config.png)
 4. Spring Config 작성 시 참고  
-![endpoint-info](/assets/images/gateway/04/endpoint-info.png)
+![endpoint-info](/assets/images/spring/gateway/04/endpoint-info.png)
 
 ```yaml
 spring:
@@ -232,8 +232,8 @@ spring:
 ### 5. Test
 
 1. login 페이지가 깨지지만 확인 가능  
-    ![login-request](/assets/images/gateway/04/login-request.png)
+    ![login-request](/assets/images/spring/gateway/04/login-request.png)
     > 로그인 페이지 설정 필요
 
 2. 생성한 유저정보(test)를 이용해 로그인 성공 시  
-    ![alt text](/assets/images/gateway/04/login-success.png)
+    ![alt text](/assets/images/spring/gateway/04/login-success.png)

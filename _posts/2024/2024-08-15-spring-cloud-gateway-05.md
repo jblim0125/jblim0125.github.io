@@ -25,31 +25,31 @@ Jaeger를 사용하면 다음을 수행할 수 있습니다.
 
 ### 포트 정보
 
-|Port|Protocol|Component|Function|
-|---|---|---|---|
-| 6831 | UDP | agent | accept jaeger.thrift over Thrift-compact protocol (used by most SDKs) |
-| 6832 | UDP | agent | accept jaeger.thrift over Thrift-binary protocol (used by Node.js SDK) |
-| 5775 | UDP | agent | (deprecated) accept zipkin.thrift over compact Thrift protocol (used by legacy clients only) |
-| 5778 | HTTP | agent | serve configs (sampling, etc.) |
-| 16686| HTTP | query | serve frontend |
-| 4317 | HTTP | collector | accept OpenTelemetry Protocol (OTLP) over gRPC |
-| 4318 | HTTP | collector | accept OpenTelemetry Protocol (OTLP) over HTTP |
-| 14268| HTTP | collector | accept jaeger.thrift directly from clients |
-| 14250| HTTP | collector | accept model.proto |
-| 9411 | HTTP | collector | Zipkin compatible endpoint (optional) |
+| Port  | Protocol | Component | Function                                                                                     |
+| ----- | -------- | --------- | -------------------------------------------------------------------------------------------- |
+| 6831  | UDP      | agent     | accept jaeger.thrift over Thrift-compact protocol (used by most SDKs)                        |
+| 6832  | UDP      | agent     | accept jaeger.thrift over Thrift-binary protocol (used by Node.js SDK)                       |
+| 5775  | UDP      | agent     | (deprecated) accept zipkin.thrift over compact Thrift protocol (used by legacy clients only) |
+| 5778  | HTTP     | agent     | serve configs (sampling, etc.)                                                               |
+| 16686 | HTTP     | query     | serve frontend                                                                               |
+| 4317  | HTTP     | collector | accept OpenTelemetry Protocol (OTLP) over gRPC                                               |
+| 4318  | HTTP     | collector | accept OpenTelemetry Protocol (OTLP) over HTTP                                               |
+| 14268 | HTTP     | collector | accept jaeger.thrift directly from clients                                                   |
+| 14250 | HTTP     | collector | accept model.proto                                                                           |
+| 9411  | HTTP     | collector | Zipkin compatible endpoint (optional)                                                        |
 
 - Collector
 
-|Port|Protocol|Endpoint|Function|
-|---|---|---|---|
-| 4317 | gRPC | n/a | Accepts traces in OpenTelemetry OTLP format  (Protobuf). |
-| 4318 | HTTP | /v1/traces | Accepts traces in OpenTelemetry OTLP format  (Protobuf and JSON). |
-| 14268 | HTTP | /api/sampling | Serves sampling policies (see Remote Sampling ). |
-| 14268 | HTTP | /api/traces | Accepts spans in jaeger.thrift  format with binary thrift protocol (POST). |
-| 14269 | HTTP | / | Admin port: health check (GET). |
-| 14269 | HTTP | /metrics | Prometheus-style metrics (GET). |
-| 9411 | HTTP | /api/v1/spans and /api/v2/spans | Accepts Zipkin spans in Thrift, JSON and Proto (disabled by default). |
-| 14250 | gRPC |n/a | Used by jaeger-agent to send spans in model.proto  Protobuf format. |
+| Port  | Protocol | Endpoint                        | Function                                                                   |
+| ----- | -------- | ------------------------------- | -------------------------------------------------------------------------- |
+| 4317  | gRPC     | n/a                             | Accepts traces in OpenTelemetry OTLP format  (Protobuf).                   |
+| 4318  | HTTP     | /v1/traces                      | Accepts traces in OpenTelemetry OTLP format  (Protobuf and JSON).          |
+| 14268 | HTTP     | /api/sampling                   | Serves sampling policies (see Remote Sampling ).                           |
+| 14268 | HTTP     | /api/traces                     | Accepts spans in jaeger.thrift  format with binary thrift protocol (POST). |
+| 14269 | HTTP     | /                               | Admin port: health check (GET).                                            |
+| 14269 | HTTP     | /metrics                        | Prometheus-style metrics (GET).                                            |
+| 9411  | HTTP     | /api/v1/spans and /api/v2/spans | Accepts Zipkin spans in Thrift, JSON and Proto (disabled by default).      |
+| 14250 | gRPC     | n/a                             | Used by jaeger-agent to send spans in model.proto  Protobuf format.        |
 
 ### 실행
 
@@ -73,7 +73,7 @@ docker run -d --name jaeger \
   jaegertracing/all-in-one:1.60
 ```
 
-![jaeger-start-page](/assets/images/gateway/05/jaeger-start-page.png)
+![jaeger-start-page](/assets/images/spring/gateway/05/jaeger-start-page.png)
 
 ## Spring Cloud Gateway
 
@@ -280,4 +280,4 @@ otel:
 
 최종적으로 다음과 같은 결과를 얻을 수 있다.  
 
-![jaeger-start-page](/assets/images/gateway/05/jaeger-result.png)
+![jaeger-start-page](/assets/images/spring/gateway/05/jaeger-result.png)

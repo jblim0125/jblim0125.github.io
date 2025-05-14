@@ -28,7 +28,7 @@ Spring Cloud Gateway 와 Keycloak 연동으로 사용자 인증이 마무리 되
 
 Spring Security의 Servlet 지원은 Servlet Filters에 기반을 두고 있으므로, 먼저 Filters의 역할을 일반적으로 살펴보는 것이 도움이 됩니다. 다음 이미지는 단일 HTTP 요청에 대한 핸들러의 일반적인 계층화를 보여줍니다.
 
-![그림 1. 필터체인](/assets/images/spring-security/image.png)
+![그림 1. 필터체인](/assets/images/spring/spring-security/image.png)
 
 클라이언트가 애플리케이션에 요청을 보내면 컨테이너는 요청 URI 경로를 기반으로 `FilterChain`을 생성합니다. 이 `FilterChain`은 처리할 `Filter` 인스턴스와 `HttpServletRequest`를 처리할 `Servlet`을 포함합니다. Spring MVC 애플리케이션에서 이 `Servlet`은 `DispatcherServlet`의 인스턴스입니다. 하나의 `HttpServletRequest`와 `HttpServletResponse`는 최대 한 개의 `Servlet`만 처리할 수 있습니다. 하지만, 여러 개의 `Filter`를 사용하여 다음과 같은 작업을 수행할 수 있습니다:
 
@@ -59,7 +59,7 @@ Spring의 `ApplicationContext` 간의 연결을 가능하게 합니다. `Servlet
 
 아래는 `DelegatingFilterProxy`가 `Filter` 인스턴스 및 `FilterChain`에서 어떻게 작동하는지를 보여주는 그림입니다.  
 
-![그림 2. DelegatingFilterProxy](/assets/images/spring-security/image-1.png)
+![그림 2. DelegatingFilterProxy](/assets/images/spring/spring-security/image-1.png)
 
 `DelegatingFilterProxy`는 `ApplicationContext`에서 Bean Filter0을 조회한 다음, Bean Filter0을 호출합니다.
 아래는 DelegatingFilterProxy의 의사 코드(pseudo code)를 보여줍니다:
@@ -88,7 +88,7 @@ Spring Security의 Servlet 지원은 `FilterChainProxy`에 포함되어 있습�
 
 아래 이미지는 `FilterChainProxy`의 역할을 보여줍니다.
 
-![그림 3. FilterChainProxy](/assets/images/spring-security/image-2.png)
+![그림 3. FilterChainProxy](/assets/images/spring/spring-security/image-2.png)
 
 ### SecurityFilterChain
 
@@ -97,7 +97,7 @@ Spring Security의 Servlet 지원은 `FilterChainProxy`에 포함되어 있습�
 
 아래 이미지는 `SecurityFilterChain`의 역할을 보여줍니다.
 
-![그림 4. SecurityFilterChain](/assets/images/spring-security/image-3.png)
+![그림 4. SecurityFilterChain](/assets/images/spring/spring-security/image-3.png)
 
 `SecurityFilterChain`에 포함된 보안 필터(`Security Filters`)는 일반적으로 Bean으로 정의되지만,
 `DelegatingFilterProxy` 대신 `FilterChainProxy`에 등록됩니다. `FilterChainProxy`를 사용하면 Servlet 컨테이너나
@@ -118,7 +118,7 @@ Servlet 컨테이너에서는 `Filter` 인스턴스가 URL을 기반으로 호�
 
 아래 이미지는 여러 개의 `SecurityFilterChain` 인스턴스를 보여줍니다.
 
-![그림 5. Multiple SecurityFilterChain](/assets/images/spring-security/image-4.png)
+![그림 5. Multiple SecurityFilterChain](/assets/images/spring/spring-security/image-4.png)
 
 `Multiple SecurityFilterChain` 그림에서 `FilterChainProxy`는 어떤 `SecurityFilterChain`을 사용할지 결정합니다.
 일치하는 첫 번째 `SecurityFilterChain`만 호출됩니다.
@@ -188,12 +188,12 @@ public class SecurityConfig {
 
 The above configuration will result in the following Filter ordering:
 
-|Filter|Added by|
-|---|---|
-|CsrfFilter|HttpSecurity#csrf|
-|UsernamePasswordAuthenticationFilter|HttpSecurity#formLogin|
-|BasicAuthenticationFilter|HttpSecurity#httpBasic|
-|AuthorizationFilter|HttpSecurity#authorizeHttpRequests|
+| Filter                               | Added by                           |
+| ------------------------------------ | ---------------------------------- |
+| CsrfFilter                           | HttpSecurity#csrf                  |
+| UsernamePasswordAuthenticationFilter | HttpSecurity#formLogin             |
+| BasicAuthenticationFilter            | HttpSecurity#httpBasic             |
+| AuthorizationFilter                  | HttpSecurity#authorizeHttpRequests |
 
 1. `CsrfFilter`가 호출되어 CSRF 공격으로부터 보호합니다.
 2. 그 다음으로, `Authentication Filter`가 호출되어 요청을 인증합니다.
@@ -414,7 +414,7 @@ SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 아래는 `ExceptionTranslationFilter`와 다른 구성 요소 간의 관계를 설명한 내용입니다:
 
-![그림 6. Handling Security Exceptions](/assets/images/spring-security/image-5.png)
+![그림 6. Handling Security Exceptions](/assets/images/spring/spring-security/image-5.png)
 
 동작 과정
 
@@ -595,7 +595,7 @@ logging.level.org.springframework.security=TRACE
 Spring Security의 인증 모델의 중심에는 SecurityContextHolder가 있습니다.
 이곳에 SecurityContext가 저장됩니다.
 
-![그림 6. SecurityContextHolder](/assets/images/spring-security/image-6.png)
+![그림 6. SecurityContextHolder](/assets/images/spring/spring-security/image-6.png)
 
 `SecurityContextHolder`는 Spring Security가 인증된 사용자에 대한 세부 정보를 저장하는 곳입니다.
 `SecurityContextHolder`가 어떻게 채워지는지는 Spring Security가 신경 쓰지 않습니다.
@@ -732,7 +732,7 @@ Authentication이 포함하는 정보:
   `AuthenticationException`으로, `ProviderManager`가 전달된 `Authentication`유형을 지원하도록
   구성되지 않았음을 나타냅니다.
 
-![그림 8. ProviderManager](/assets/images/spring-security/image-7.png)
+![그림 8. ProviderManager](/assets/images/spring/spring-security/image-7.png)
 
 실제 사용 사례
 
@@ -751,7 +751,7 @@ Authentication이 포함하는 정보:
 * 모든 `AuthenticationProvider`가 인증을 수행하지 못한 경우, 부모 `AuthenticationManager`가 호출됩니다.
 * 부모는 어떤 유형의 `AuthenticationManager`도 될 수 있지만, 일반적으로 `ProviderManager`의 인스턴스입니다.
 
-![그림 9. ProviderManager Parent](/assets/images/spring-security/image-8.png)
+![그림 9. ProviderManager Parent](/assets/images/spring/spring-security/image-8.png)
 
 *Shared Parent AuthenticationManager*  
 
@@ -760,7 +760,7 @@ Authentication이 포함하는 정보:
 * 여러 `SecurityFilterChain` 인스턴스가 공통의 인증 메커니즘(`Shared Parent AuthenticationManager`)과
   서로 다른 인증 메커니즘(개별 `ProviderManager`)을 사용하는 경우.
 
-![그림 10. Shared Parent AuthenticationManager](/assets/images/spring-security/image-9.png)
+![그림 10. Shared Parent AuthenticationManager](/assets/images/spring/spring-security/image-9.png)
 
 *기본 동작: 자격 증명 정보 삭제*  
 기본적으로 `ProviderManager`는 인증 요청이 성공적으로 처리된 후 반환되는 `Authentication` 객체에서
@@ -814,7 +814,7 @@ Authentication이 포함하는 정보:
 자격 증명을 인증하기 전에, Spring Security는 일반적으로 `AuthenticationEntryPoint`를 사용하여 자격 증명을 요청합니다.
 이후, `AbstractAuthenticationProcessingFilter`는 제출된 인증 요청을 처리하고 인증을 수행합니다.
 
-![그림 11. AbstractAuthenticationProcessingFilter](/assets/images/spring-security/image-10.png)
+![그림 11. AbstractAuthenticationProcessingFilter](/assets/images/spring/spring-security/image-10.png)
 
 동작 흐름:
 
