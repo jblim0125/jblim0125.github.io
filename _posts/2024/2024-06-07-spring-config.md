@@ -15,7 +15,7 @@ category: 2024
 ### Spring Cloud Config Server  
 
 * Config 서버의 기본 구조  
-    ![ConfigServer구조](image-2.png)  
+    ![ConfigServer구조](/assets/images/spring/config/image-2.png)  
 * Config 서버 기본 정책  
     a. App 등록과 `Configuration` 등록 필요  
     b. 등록 Config 의 Version을 이용해 추가 가능  

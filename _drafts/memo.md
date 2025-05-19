@@ -292,6 +292,24 @@
         - 데모(ETRI, 슈어 프로그램 인수인계)
       - 인력
         - 김현성
+  - 16일 주간 회의
+    - 업무
+      - 데이터패브릭 -> 보이스1세부
+        - 인수인계 후 보이스1세부 수행
+      - 그라피오 내 수주AI의 메인 업무 수행 필요
+        - 혜윤책임님 진행하던 것 이어서 수행
+        - 주소민책임과 함께 진행
+
+- Jira 관련
+  - 해결되지 않은 이슈 리스트
+    - <https://mobigen.atlassian.net/browse/PRADT-20>
+    - <https://mobigen.atlassian.net/browse/PRADT-28>
+    - <https://mobigen.atlassian.net/browse/PRADT-39>
+    - <https://mobigen.atlassian.net/browse/PRADT-45>
+    - <https://mobigen.atlassian.net/browse/PRADT-49>
+    - <https://mobigen.atlassian.net/browse/PRADT-240>
+    - <https://mobigen.atlassian.net/browse/FAB2023-53>
+    - <https://mobigen.atlassian.net/browse/FAB2023-441>
 
 ## 데이터 패브릭
 

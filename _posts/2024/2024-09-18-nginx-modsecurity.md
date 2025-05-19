@@ -52,8 +52,6 @@ docker buildx bake -f docker-bake.hcl
 
 docker buildx bake -f docker-bake.hcl --set "*.platform=linux/amd64" nginx-alpine
 
-
-
 프록시를 이용한 웹 보안 강화(modsecurity + nginx)
 
 ### Get Docker Image
@@ -94,11 +92,14 @@ docker pull owasp/modsecurity-crs:4.5.0-nginx-alpine-202407300107
 
 4. nginx.conf.template
 
-
 ### 실행
+
+...
 
 ### 테스트
 
+...
+
 ### 참고 사이트
 
-modsecurity : https://github.com/coreruleset/modsecurity-crs-docker?tab=readme-ov-file
+modsecurity : <https://github.com/coreruleset/modsecurity-crs-docker?tab=readme-ov-file>
