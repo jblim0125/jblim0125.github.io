@@ -89,7 +89,7 @@ def assistant(state: MessagesState):
 ```
 
 노드 선언 및 엣지를 이용하여 노드를 연결하여 그래프를 작성합니다.
-주목할 부분은 `assistant` 노드의 결과에 따라 도구를 호출할지 여부를 결정하는 엣지입니다. 
+주목할 부분은 `assistant` 노드의 결과에 따라 도구를 호출할지 여부를 결정하는 엣지입니다.  
 
 ```python
 from langgraph.graph import START, StateGraph
@@ -289,7 +289,7 @@ The sum of 3 and 4 is 7.
 동일한 `thread_id` 를 사용하면 이전에 기록된 체크포인트에서 진행할 수 있습니다!
 아래와 같이 사용자 메시지를 `thread_id`가 포함된 config를 사용하여 실행해 보겠습니다.
 
-다음 코드 실행 시 이전 실행 결과와 추가한 메시지가 연결되어 실행되는 것을 볼 수 있습니다. 
+다음 코드 실행 시 이전 실행 결과와 추가한 메시지가 연결되어 실행되는 것을 볼 수 있습니다.  
 
 ```python
 messages = [HumanMessage(content="Multiply that by 2.")]
