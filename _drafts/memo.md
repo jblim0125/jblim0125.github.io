@@ -3,9 +3,6 @@
 - 매월 업무 등록 29일  
 - 휴가가 예정된 경우 일주일 전  
 
-- 내 투입 프로젝트 비율
-  - 데이터패브릭 90%
-  - 재난안전 10%
 - 프로젝트 수행 주체가 변경될 경우
   - 그래피오 100%
 
@@ -300,28 +297,6 @@
         - 혜윤책임님 진행하던 것 이어서 수행
         - 주소민책임과 함께 진행
 
-- Jira 관련
-  - 해결되지 않은 이슈 리스트
-    - <https://mobigen.atlassian.net/browse/PRADT-20>
-    - <https://mobigen.atlassian.net/browse/PRADT-28>
-    - <https://mobigen.atlassian.net/browse/PRADT-39>
-    - <https://mobigen.atlassian.net/browse/PRADT-45>
-    - <https://mobigen.atlassian.net/browse/PRADT-49>
-    - <https://mobigen.atlassian.net/browse/PRADT-240>
-    - <https://mobigen.atlassian.net/browse/FAB2023-53>
-    - <https://mobigen.atlassian.net/browse/FAB2023-441>
-
-## 데이터 패브릭
-
-- Mail 관련 정보  
-  Gmail - SMTP Setting
-  ID : datafabric.test
-  PW : ukpcbqzuqlpdmwpi
-  SERVER : smtp.gmail.com
-  PORT : 587
-  PROTOCOL : SMTP_TLS
-  SENDER : datafabric.test@gmail.com
-
 ## 개인적인
 
 - [ ] Jaeger  
@@ -334,13 +309,7 @@
     - [ ] RBAC 기반
     - [ ] USER/GROUP
     - [ ] Attribute
-- [ ] 1월 11일 결혼식 사진 관련  
-
----
-
-- 2025 2월
-  - 5일  
-    - [ ] github page에서 보이도록 하는 방법은 찾는 중...
+- [ ] Access Control Engine(OpenSource)
 
 ### 건강검진
 
@@ -352,7 +321,6 @@
 ### b형간염
 
 - 기록  
-  - [ ] 25년 2월 1일(60알)  
-  - [ ] 25년 4월 5일(60알)
-- 다음 일정  
-  - [ ] 25년 3월 29일 - 아무래도 몇 번 잊어 버린 듯
+  - [x] 25년 2월 1일(60알)  
+  - [x] 25년 4월 5일(60알)
+  - [x] 25년 6월 5일(60알)
