@@ -1,4 +1,3 @@
-
 # 트러블슈팅가이드
 
 * Dashboard, Studio Token 오류 발생 시 확인 사항  
@@ -27,7 +26,6 @@
         ```
 
 ```java
-
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -311,5 +309,4 @@ public class Histogram {
     @JsonPropertyDescription("Frequencies of Histogram.")
     private List<Object> frequencies = new ArrayList();
 }
-
 ```
