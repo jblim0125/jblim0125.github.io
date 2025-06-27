@@ -51,7 +51,7 @@ services:
     docker-compose up -d
     ```
 
-2. GitLab이 시작되면, 웹 브라우저에서 `host_ip:8929`에 접속하여 GitLab에 접근할 수 있습니다.
+2. GitLab이 시작되면, 웹 브라우저에서 `http://{host_ip}:8929`에 접속하여 GitLab에 접근할 수 있습니다.
     초기 패스워드는 `docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password` 명령어로 확인할 수 있습니다.
     접속 후 root 계정의 패스워드를 변경합니다.
 
@@ -86,7 +86,7 @@ services:
     docker exec -it gitlab-runner gitlab-runner register
     ```
 
-    - GitLab URL: <http://{host_ip}:8929>
+    - GitLab URL: `http://{host_ip}:8929`
     - Token: GitLab에서 생성한 Runner 토큰 입력
     - Description: Runner 설명 입력
     - Tags: Runner 태그 입력 (예: `voice_phishing`)
