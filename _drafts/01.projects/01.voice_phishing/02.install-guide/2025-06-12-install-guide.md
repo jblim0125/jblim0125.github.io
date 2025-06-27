@@ -356,6 +356,19 @@ networks:
     - Username: `voice_phishing_user`
     - Password: `test1234!`
 
+5. Client Scope 추가
+    - Name: `groups`
+    - Include in token scope : On
+    - Add Mapper :
+      - Add Mapper by Configuration
+        - Group Membership
+          - Name: `groups`
+          - Token Claim Name: `groups`
+
+6. API Gateway Client Scopes 추가
+    - API Gateway Client 설정에서 `Client Scopes` 탭으로 이동
+    - `Client Scopes`에 `groups` 추가 후 `Default`로 설정
+
 ---
 
 **SonarQube**  
@@ -393,6 +406,8 @@ networks:
     - Scope: `Execute Analysis`
     - Token: 생성된 토큰을 복사
     > SONAR_TOKEN : sqp_e3c361b5dc70028135c34cf7f8c061b660025c25
+
+---
 
 ## 4. 고가용성 구성
 

@@ -9,24 +9,48 @@
   - [3. 참고](#3-참고)
     - [모비젠 연구 내용](#모비젠-연구-내용)
 
-## 1. 업무
-
-### 1.1. 인프라 구축
+## 1. 업무 리스트
 
 - [v] Nginx + WAF
-- [v] GitLab
+  - 기능
+    - HTTPS(SSL) 적용
+    - 웹 방화벽(WAF) 적용
+  - [ ] Nginx + WAF 상세 설정 - Zero Trust 적용 시 필요
 - [v] Keycloak
-- [v] Jaeger  
+  - 기능
+    - 사용자 인증(OAuth2, OpenID Connect)
+    - 사용자 및 그룹 관리
+    - 사용자 및 그룹 권한(역할) 관리
+    - 사용자 속성 관리
+  - [v] voice-phishing realm 생성
+  - [v] 사용자 인증 테스트 사용자, 그룹 생성
 - [v] Spring Cloud Gateway
-  - [v] Spring Security
-  - [ ] Dynamic Routing
+  - 기능
+    - API Gateway(동적 라우팅)
+    - 사용자 인증 및 권한 관리
+  - [v] Auth
+    - [v] OAuth2 를 이용한 keycloak 연동(사용자 인증) 완료
+    - [v] JWT 토큰 기반 사용자 정보(id, group, roles, attributes) 파싱 및 전달 기능 개발 완료
+  - [v] Dynamic Routing
+    - [v] Actuator, GatewayRouteDefinitionRepository를 활용한 동적 라우팅 기능 개발 완료
+    - [v] r2dbc를 이용한 동적 라우팅 정보 저장 기능 개발 완료
 - [ ] Access Control Engine(OpenSource)
-- [ ] Service
-  - [ ] Collect Service
+- [v] Service
+  - [v] RestAPI 문서
+  - [v] Collect Service
+    - [v] 데이터 수신 및 처리 기능
   - [ ] Analysis Service
-- [ ] Storage Service
+    - [ ] 스미싱 URL, 악성앱 배포지 등 실시간 공유 대상 데이터 추출 기술
+- [v] Storage Service
   - [v] MySQL
-  - [ ] MinIO
+  - [v] MinIO
+  - [ ] 수평확장
+    - [v] MySQL 및 MinIO 수평 확장 방안 및 설계
+- [v] GitLab
+  - [v] GitLab Runner
+  - [v] GitLab CI/CD
+- [v] Jaeger  
+- [v] SonarQube
 
 ### 1.2. 설계
 
