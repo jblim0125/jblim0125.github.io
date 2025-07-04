@@ -1,0 +1,1135 @@
+# Access Control API
+openapi: "3.0.3"
+info:
+  title: Voice Phishing Data Portal Access Control API
+  description: API 접근 권한을 사용자, 그룹, 역할, 속성에 따라 관리하는 접근 제어 API
+  version: "1.0"
+servers:
+  - url: http://192.168.105.51:8080/api/v1/access
+    description: development server
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ApiEndpoint:
+      type: object
+      properties:
+        id:
+          type: string
+          description: API 엔드포인트 ID
+        path:
+          type: string
+          description: "API 경로 (예: /api/v1/data/records)"
+        method:
+          type: string
+          enum: [GET, POST, PUT, DELETE, PATCH]
+          description: HTTP 메서드
+        service:
+          type: string
+          description: 서비스명
+        description:
+          type: string
+          description: API 설명
+        tags:
+          type: array
+          items:
+            type: string
+          description: API 태그
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AccessRule:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 접근 규칙 ID
+        apiEndpointId:
+          type: string
+          description: 대상 API 엔드포인트 ID
+        ruleName:
+          type: string
+          description: 규칙명
+        description:
+          type: string
+          description: 규칙 설명
+        effect:
+          type: string
+          enum: [ALLOW, DENY]
+          description: 허용/거부 효과
+        priority:
+          type: integer
+          description: 규칙 우선순위 (낮을수록 높은 우선순위)
+        enabled:
+          type: boolean
+          description: 규칙 활성화 상태
+        conditions:
+          $ref: "#/components/schemas/AccessConditions"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AccessConditions:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: string
+          description: 허용/거부할 사용자 ID 목록
+        groups:
+          type: array
+          items:
+            type: string
+          description: 허용/거부할 그룹 ID 목록
+        roles:
+          type: array
+          items:
+            type: string
+          description: 허용/거부할 역할명 목록
+        attributes:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttributeCondition"
+          description: 속성 기반 조건
+        timeRestrictions:
+          $ref: "#/components/schemas/TimeRestrictions"
+        ipRestrictions:
+          type: array
+          items:
+            type: string
+          description: IP 주소/CIDR 제한
+
+    AttributeCondition:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 속성명
+        operator:
+          type: string
+          enum: [EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS, IN, NOT_IN]
+          description: 비교 연산자
+        values:
+          type: array
+          items:
+            type: string
+          description: 비교할 값 목록
+
+    TimeRestrictions:
+      type: object
+      properties:
+        allowedDays:
+          type: array
+          items:
+            type: string
+            enum:
+              [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY]
+          description: 허용 요일
+        allowedTimeStart:
+          type: string
+          format: time
+          description: 허용 시작 시간 (HH:mm)
+        allowedTimeEnd:
+          type: string
+          format: time
+          description: 허용 종료 시간 (HH:mm)
+        timezone:
+          type: string
+          description: "시간대 (예: Asia/Seoul)"
+
+    AccessRuleCreate:
+      type: object
+      required:
+        - apiEndpointId
+        - ruleName
+        - effect
+      properties:
+        apiEndpointId:
+          type: string
+        ruleName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        effect:
+          type: string
+          enum: [ALLOW, DENY]
+        priority:
+          type: integer
+          minimum: 1
+          default: 100
+        enabled:
+          type: boolean
+          default: true
+        conditions:
+          $ref: "#/components/schemas/AccessConditions"
+
+    AccessRuleUpdate:
+      type: object
+      properties:
+        ruleName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        effect:
+          type: string
+          enum: [ALLOW, DENY]
+        priority:
+          type: integer
+          minimum: 1
+        enabled:
+          type: boolean
+        conditions:
+          $ref: "#/components/schemas/AccessConditions"
+
+    AccessCheckRequest:
+      type: object
+      required:
+        - userId
+        - apiPath
+        - method
+      properties:
+        userId:
+          type: string
+          description: 확인할 사용자 ID
+        apiPath:
+          type: string
+          description: 요청 API 경로
+        method:
+          type: string
+          enum: [GET, POST, PUT, DELETE, PATCH]
+          description: HTTP 메서드
+        ipAddress:
+          type: string
+          description: 클라이언트 IP 주소
+        requestTime:
+          type: string
+          format: date-time
+          description: 요청 시간
+
+    AccessCheckResponse:
+      type: object
+      properties:
+        allowed:
+          type: boolean
+          description: 접근 허용 여부
+        reason:
+          type: string
+          description: 허용/거부 이유
+        appliedRules:
+          type: array
+          items:
+            type: object
+            properties:
+              ruleId:
+                type: string
+              ruleName:
+                type: string
+              effect:
+                type: string
+              priority:
+                type: integer
+          description: 적용된 규칙 목록
+
+    UserSearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        enabled:
+          type: boolean
+
+    GroupSearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        memberCount:
+          type: integer
+
+    RoleSearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        clientRole:
+          type: boolean
+
+    AttributeSearchResult:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        possibleValues:
+          type: array
+          items:
+            type: string
+        usageCount:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        code:
+          type: integer
+        details:
+          type: object
+
+security:
+  - BearerAuth: []
+
+paths:
+  # API 엔드포인트 관리
+  /api-endpoints:
+    get:
+      summary: API 엔드포인트 목록 조회
+      description: 시스템에 등록된 API 엔드포인트 목록을 조회합니다
+      parameters:
+        - name: service
+          in: query
+          schema:
+            type: string
+          description: 서비스명으로 필터
+        - name: method
+          in: query
+          schema:
+            type: string
+            enum: [GET, POST, PUT, DELETE, PATCH]
+          description: HTTP 메서드로 필터
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 경로 또는 설명으로 검색
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: 페이지 번호
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+          description: 페이지 크기
+      responses:
+        "200":
+          description: API 엔드포인트 목록
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ApiEndpoint"
+                  totalElements:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  size:
+                    type: integer
+                  number:
+                    type: integer
+
+    post:
+      summary: 새 API 엔드포인트 등록
+      description: 새로운 API 엔드포인트를 시스템에 등록합니다
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - path
+                - method
+                - service
+              properties:
+                path:
+                  type: string
+                method:
+                  type: string
+                  enum: [GET, POST, PUT, DELETE, PATCH]
+                service:
+                  type: string
+                description:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "201":
+          description: API 엔드포인트 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiEndpoint"
+        "400":
+          description: 잘못된 요청
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: 이미 존재하는 엔드포인트
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api-endpoints/{endpointId}:
+    get:
+      summary: API 엔드포인트 상세 조회
+      parameters:
+        - name: endpointId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: API 엔드포인트 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiEndpoint"
+        "404":
+          description: 엔드포인트를 찾을 수 없음
+
+    put:
+      summary: API 엔드포인트 수정
+      parameters:
+        - name: endpointId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiEndpoint"
+        "404":
+          description: 엔드포인트를 찾을 수 없음
+
+    delete:
+      summary: API 엔드포인트 삭제
+      parameters:
+        - name: endpointId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제 성공
+        "404":
+          description: 엔드포인트를 찾을 수 없음
+
+  # 접근 규칙 관리
+  /access-rules:
+    get:
+      summary: 접근 규칙 목록 조회
+      description: 설정된 접근 규칙 목록을 조회합니다
+      parameters:
+        - name: apiEndpointId
+          in: query
+          schema:
+            type: string
+          description: 특정 API 엔드포인트의 규칙만 조회
+        - name: effect
+          in: query
+          schema:
+            type: string
+            enum: [ALLOW, DENY]
+          description: 효과로 필터
+        - name: enabled
+          in: query
+          schema:
+            type: boolean
+          description: 활성화 상태로 필터
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 규칙명으로 검색
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        "200":
+          description: 접근 규칙 목록
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AccessRule"
+                  totalElements:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  size:
+                    type: integer
+                  number:
+                    type: integer
+
+    post:
+      summary: 새 접근 규칙 생성
+      description: 새로운 접근 규칙을 생성합니다
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccessRuleCreate"
+      responses:
+        "201":
+          description: 접근 규칙 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRule"
+        "400":
+          description: 잘못된 요청
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /access-rules/{ruleId}:
+    get:
+      summary: 접근 규칙 상세 조회
+      parameters:
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 접근 규칙 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRule"
+        "404":
+          description: 규칙을 찾을 수 없음
+
+    put:
+      summary: 접근 규칙 수정
+      parameters:
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccessRuleUpdate"
+      responses:
+        "200":
+          description: 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRule"
+        "404":
+          description: 규칙을 찾을 수 없음
+
+    delete:
+      summary: 접근 규칙 삭제
+      parameters:
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 삭제 성공
+        "404":
+          description: 규칙을 찾을 수 없음
+
+  /access-rules/{ruleId}/toggle:
+    patch:
+      summary: 접근 규칙 활성화/비활성화 토글
+      parameters:
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 토글 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRule"
+        "404":
+          description: 규칙을 찾을 수 없음
+
+  # 접근 권한 확인
+  /check-access:
+    post:
+      summary: 접근 권한 확인
+      description: 특정 사용자의 API 접근 권한을 확인합니다
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccessCheckRequest"
+      responses:
+        "200":
+          description: 접근 권한 확인 결과
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessCheckResponse"
+        "400":
+          description: 잘못된 요청
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /check-access/batch:
+    post:
+      summary: 대량 접근 권한 확인
+      description: 여러 사용자의 여러 API에 대한 접근 권한을 한 번에 확인합니다
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requests:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AccessCheckRequest"
+      responses:
+        "200":
+          description: 대량 접근 권한 확인 결과
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AccessCheckResponse"
+
+  # 사용자/그룹/역할/속성 검색
+  /search/users:
+    get:
+      summary: 사용자 검색
+      description: 접근 규칙에 추가할 사용자를 검색합니다
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 사용자명, 이메일, 이름으로 검색
+        - name: enabled
+          in: query
+          schema:
+            type: boolean
+          description: 활성화된 사용자만 검색
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+          description: 최대 결과 수
+      responses:
+        "200":
+          description: 사용자 검색 결과
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserSearchResult"
+
+  /search/groups:
+    get:
+      summary: 그룹 검색
+      description: 접근 규칙에 추가할 그룹을 검색합니다
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 그룹명으로 검색
+        - name: parentId
+          in: query
+          schema:
+            type: string
+          description: 특정 상위 그룹 하위만 검색
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+      responses:
+        "200":
+          description: 그룹 검색 결과
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GroupSearchResult"
+
+  /search/roles:
+    get:
+      summary: 역할 검색
+      description: 접근 규칙에 추가할 역할을 검색합니다
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 역할명으로 검색
+        - name: clientRole
+          in: query
+          schema:
+            type: boolean
+          description: 클라이언트 역할 여부로 필터
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+      responses:
+        "200":
+          description: 역할 검색 결과
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoleSearchResult"
+
+  /search/attributes:
+    get:
+      summary: 속성 검색
+      description: 접근 규칙에 사용할 속성을 검색합니다
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 속성명으로 검색
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+      responses:
+        "200":
+          description: 속성 검색 결과
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AttributeSearchResult"
+
+  /attributes/{attributeName}/values:
+    get:
+      summary: 속성 가능한 값 목록 조회
+      description: 특정 속성의 가능한 값 목록을 조회합니다
+      parameters:
+        - name: attributeName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 값으로 검색
+      responses:
+        "200":
+          description: 속성 값 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                    count:
+                      type: integer
+                      description: 해당 값을 가진 사용자 수
+
+  # 규칙 테스트 및 시뮬레이션
+  /rules/simulate:
+    post:
+      summary: 규칙 시뮬레이션
+      description: 새로운 규칙을 실제 적용하기 전에 시뮬레이션해봅니다
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rule:
+                  $ref: "#/components/schemas/AccessRuleCreate"
+                testCases:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AccessCheckRequest"
+      responses:
+        "200":
+          description: 시뮬레이션 결과
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        testCase:
+                          $ref: "#/components/schemas/AccessCheckRequest"
+                        currentResult:
+                          $ref: "#/components/schemas/AccessCheckResponse"
+                        simulatedResult:
+                          $ref: "#/components/schemas/AccessCheckResponse"
+
+  # 감사 및 로깅
+  /audit/access-logs:
+    get:
+      summary: 접근 로그 조회
+      description: API 접근 시도에 대한 로그를 조회합니다
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          description: 특정 사용자의 로그만 조회
+        - name: apiPath
+          in: query
+          schema:
+            type: string
+          description: 특정 API 경로의 로그만 조회
+        - name: allowed
+          in: query
+          schema:
+            type: boolean
+          description: 허용/거부 여부로 필터
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: 시작 날짜
+        - name: toDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: 종료 날짜
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        "200":
+          description: 접근 로그 목록
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        userId:
+                          type: string
+                        username:
+                          type: string
+                        apiPath:
+                          type: string
+                        method:
+                          type: string
+                        allowed:
+                          type: boolean
+                        reason:
+                          type: string
+                        ipAddress:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+                        appliedRules:
+                          type: array
+                          items:
+                            type: string
+                  totalElements:
+                    type: integer
+                  totalPages:
+                    type: integer
+
+  # 통계 및 대시보드
+  /statistics/access-summary:
+    get:
+      summary: 접근 통계 요약
+      description: 접근 허용/거부 통계를 요약해서 제공합니다
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [hour, day, week, month]
+            default: day
+          description: 통계 기간
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: toDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: 접근 통계
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRequests:
+                    type: integer
+                  allowedRequests:
+                    type: integer
+                  deniedRequests:
+                    type: integer
+                  allowRate:
+                    type: number
+                    format: float
+                  topDeniedApis:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        apiPath:
+                          type: string
+                        deniedCount:
+                          type: integer
+                  topDeniedUsers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userId:
+                          type: string
+                        username:
+                          type: string
+                        deniedCount:
+                          type: integer
+
+  /statistics/rule-effectiveness:
+    get:
+      summary: 규칙 효과성 분석
+      description: 각 규칙이 얼마나 자주 적용되는지 분석합니다
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [day, week, month]
+            default: week
+      responses:
+        "200":
+          description: 규칙 효과성 통계
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ruleId:
+                      type: string
+                    ruleName:
+                      type: string
+                    appliedCount:
+                      type: integer
+                    effect:
+                      type: string
+                    lastApplied:
+                      type: string
+                      format: date-time
+
+  # 대량 작업
+  /bulk/rules/import:
+    post:
+      summary: 규칙 대량 가져오기
+      description: JSON 파일을 통한 규칙 대량 가져오기
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 규칙 정의 JSON 파일
+                overwrite:
+                  type: boolean
+                  default: false
+                  description: 기존 규칙 덮어쓰기 여부
+      responses:
+        "200":
+          description: 가져오기 결과
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  imported:
+                    type: integer
+                  skipped:
+                    type: integer
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        line:
+                          type: integer
+                        error:
+                          type: string
+
+  /bulk/rules/export:
+    get:
+      summary: 규칙 대량 내보내기
+      parameters:
+        - name: apiEndpointId
+          in: query
+          schema:
+            type: string
+          description: 특정 API의 규칙만 내보내기
+        - name: enabled
+          in: query
+          schema:
+            type: boolean
+          description: 활성화된 규칙만 내보내기
+      responses:
+        "200":
+          description: 규칙 데이터 파일
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AccessRule"

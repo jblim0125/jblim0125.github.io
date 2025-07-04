@@ -1,0 +1,1547 @@
+# File: user-management.yml
+# This file is part of the Voice Phishing Data Portal project.
+# It defines the OpenAPI specification for the User Management API, which allows for managing user accounts
+# and permissions within the Voice Phishing Data Portal.
+#
+openapi: "3.0.3"
+info:
+  title: Voice Phishing Data Portal User Management API
+  description: API for managing user accounts and permissions within the Voice Phishing Data Portal
+  version: "1.0"
+servers:
+  - url: http://192.168.105.51:8080/api/v1/portal
+    description: development server
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Keycloak 사용자 ID
+        username:
+          type: string
+          description: 사용자명
+        email:
+          type: string
+          format: email
+          description: 이메일 주소
+        firstName:
+          type: string
+          description: 이름
+        lastName:
+          type: string
+          description: 성
+        enabled:
+          type: boolean
+          description: 계정 활성화 상태
+        emailVerified:
+          type: boolean
+          description: 이메일 인증 상태
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 사용자 속성
+        groups:
+          type: array
+          items:
+            $ref: "#/components/schemas/Group"
+          description: 소속 그룹 목록
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+          description: 할당된 역할 목록
+        createdTimestamp:
+          type: integer
+          format: int64
+          description: 생성 시간 (Unix timestamp)
+
+    UserCreate:
+      type: object
+      required:
+        - username
+        - email
+        - firstName
+        - lastName
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 50
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        password:
+          type: string
+          minLength: 8
+          description: 임시 비밀번호 (설정하지 않으면 임시 비밀번호 자동 생성)
+        enabled:
+          type: boolean
+          default: true
+        emailVerified:
+          type: boolean
+          default: false
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    UserUpdate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        enabled:
+          type: boolean
+        emailVerified:
+          type: boolean
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Keycloak 그룹 ID
+        name:
+          type: string
+          description: 그룹명
+        path:
+          type: string
+          description: 그룹 경로
+        parentId:
+          type: string
+          description: 상위 그룹 ID
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 그룹 속성
+        subGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/Group"
+          description: 하위 그룹 목록
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+          description: 그룹에 할당된 역할 목록
+
+    GroupCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        parentId:
+          type: string
+          description: 상위 그룹 ID (최상위 그룹인 경우 생략)
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    GroupUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        parentId:
+          type: string
+          description: 상위 그룹 ID 변경
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Keycloak 역할 ID
+        name:
+          type: string
+          description: 역할명
+        description:
+          type: string
+          description: 역할 설명
+        composite:
+          type: boolean
+          description: 복합 역할 여부
+        clientRole:
+          type: boolean
+          description: 클라이언트 역할 여부
+        containerId:
+          type: string
+          description: 컨테이너 ID (realm 또는 client)
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 역할 속성
+
+    RoleCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        composite:
+          type: boolean
+          default: false
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    RoleUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    Attribute:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 속성명
+        values:
+          type: array
+          items:
+            type: string
+          description: 속성값 목록
+
+    RoleAssignment:
+      type: object
+      required:
+        - roleId
+      properties:
+        roleId:
+          type: string
+          description: 할당할 역할 ID
+        roleName:
+          type: string
+          description: 역할명 (참조용)
+
+    UserSession:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        username:
+          type: string
+        ipAddress:
+          type: string
+        start:
+          type: integer
+          format: int64
+        lastAccess:
+          type: integer
+          format: int64
+        clients:
+          type: object
+          additionalProperties:
+            type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        code:
+          type: integer
+        details:
+          type: object
+
+security:
+  - BearerAuth: []
+
+paths:
+  # 사용자 관리 API
+  /users:
+    get:
+      summary: 사용자 목록 조회
+      description: 페이지네이션을 지원하는 사용자 목록 조회
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 사용자명, 이메일, 이름으로 검색
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: 시작 인덱스
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+          description: 최대 결과 수
+        - name: enabled
+          in: query
+          schema:
+            type: boolean
+          description: 활성화 상태 필터
+      responses:
+        "200":
+          description: 사용자 목록
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  totalCount:
+                    type: integer
+                  hasNext:
+                    type: boolean
+
+    post:
+      summary: 새 사용자 생성
+      description: Keycloak에 새 사용자를 생성합니다
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreate"
+      responses:
+        "201":
+          description: 사용자 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: 잘못된 요청
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: 사용자명 또는 이메일 중복
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /users/{userId}:
+    get:
+      summary: 사용자 상세 정보 조회
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 사용자 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: 사용자를 찾을 수 없음
+
+    put:
+      summary: 사용자 정보 수정
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdate"
+      responses:
+        "200":
+          description: 사용자 정보 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: 사용자를 찾을 수 없음
+
+    delete:
+      summary: 사용자 삭제
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 사용자 삭제 성공
+        "404":
+          description: 사용자를 찾을 수 없음
+
+  /users/{userId}/reset-password:
+    post:
+      summary: 사용자 비밀번호 재설정
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                temporaryPassword:
+                  type: string
+                  description: 임시 비밀번호 (미입력시 자동 생성)
+                requirePasswordUpdate:
+                  type: boolean
+                  default: true
+                  description: 다음 로그인 시 비밀번호 변경 필수 여부
+      responses:
+        "200":
+          description: 비밀번호 재설정 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  temporaryPassword:
+                    type: string
+                    description: 생성된 임시 비밀번호 (자동 생성된 경우)
+
+  /users/{userId}/sessions:
+    get:
+      summary: 사용자 세션 목록 조회
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 사용자 세션 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserSession"
+
+    delete:
+      summary: 사용자 모든 세션 종료
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 세션 종료 성공
+
+  /users/{userId}/groups:
+    get:
+      summary: 사용자 소속 그룹 목록
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 그룹 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+
+    post:
+      summary: 사용자를 그룹에 추가
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - groupId
+              properties:
+                groupId:
+                  type: string
+      responses:
+        "204":
+          description: 그룹 추가 성공
+
+  /users/{userId}/groups/{groupId}:
+    delete:
+      summary: 사용자를 그룹에서 제거
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 그룹 제거 성공
+
+  /users/{userId}/roles:
+    get:
+      summary: 사용자 역할 목록
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: clientId
+          in: query
+          schema:
+            type: string
+          description: 클라이언트 역할 조회 시 클라이언트 ID
+      responses:
+        "200":
+          description: 역할 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+
+    post:
+      summary: 사용자에게 역할 할당
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/RoleAssignment"
+                clientId:
+                  type: string
+                  description: 클라이언트 역할 할당 시 클라이언트 ID
+      responses:
+        "204":
+          description: 역할 할당 성공
+
+    delete:
+      summary: 사용자 역할 해제
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/RoleAssignment"
+                clientId:
+                  type: string
+                  description: 클라이언트 역할 해제 시 클라이언트 ID
+      responses:
+        "204":
+          description: 역할 해제 성공
+
+  /users/{userId}/attributes:
+    get:
+      summary: 사용자 속성 목록
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 속성 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attribute"
+
+    post:
+      summary: 사용자 속성 추가
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Attribute"
+      responses:
+        "204":
+          description: 속성 추가 성공
+
+  /users/{userId}/attributes/{attributeName}:
+    put:
+      summary: 사용자 속성 수정
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: attributeName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "204":
+          description: 속성 수정 성공
+
+    delete:
+      summary: 사용자 속성 삭제
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: attributeName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 속성 삭제 성공
+
+  # 그룹 관리 API
+  /groups:
+    get:
+      summary: 그룹 목록 조회
+      description: 계층 구조를 포함한 그룹 목록 조회
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 그룹명으로 검색
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: briefRepresentation
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: 간단한 정보만 조회 여부
+      responses:
+        "200":
+          description: 그룹 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+
+    post:
+      summary: 새 그룹 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GroupCreate"
+      responses:
+        "201":
+          description: 그룹 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+
+  /groups/{groupId}:
+    get:
+      summary: 그룹 상세 정보 조회
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 그룹 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+
+    put:
+      summary: 그룹 정보 수정
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GroupUpdate"
+      responses:
+        "200":
+          description: 그룹 정보 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+
+    delete:
+      summary: 그룹 삭제
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 그룹 삭제 성공
+
+  /groups/{groupId}/members:
+    get:
+      summary: 그룹 멤버 목록 조회
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: 그룹 멤버 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /groups/{groupId}/children:
+    get:
+      summary: 하위 그룹 목록 조회
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 하위 그룹 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+
+    post:
+      summary: 하위 그룹 생성
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                attributes:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        "201":
+          description: 하위 그룹 생성 성공
+
+  /groups/{groupId}/role-mappings:
+    get:
+      summary: 그룹에 할당된 역할 목록
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: clientId
+          in: query
+          schema:
+            type: string
+          description: 클라이언트 역할 조회 시 클라이언트 ID
+      responses:
+        "200":
+          description: 역할 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+
+    post:
+      summary: 그룹에 역할 할당
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/RoleAssignment"
+                clientId:
+                  type: string
+                  description: 클라이언트 역할 할당 시 클라이언트 ID
+      responses:
+        "204":
+          description: 역할 할당 성공
+
+    delete:
+      summary: 그룹 역할 해제
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/RoleAssignment"
+                clientId:
+                  type: string
+      responses:
+        "204":
+          description: 역할 해제 성공
+
+  /groups/{groupId}/attributes:
+    get:
+      summary: 그룹 속성 목록
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 속성 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attribute"
+
+    post:
+      summary: 그룹 속성 추가
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Attribute"
+      responses:
+        "204":
+          description: 속성 추가 성공
+
+  /groups/{groupId}/attributes/{attributeName}:
+    delete:
+      summary: 그룹 속성 삭제
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: attributeName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 속성 삭제 성공
+
+  # 역할 관리 API
+  /roles:
+    get:
+      summary: 역할 목록 조회
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 역할명으로 검색
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: briefRepresentation
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: 역할 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+
+    post:
+      summary: 새 역할 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleCreate"
+      responses:
+        "201":
+          description: 역할 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+
+  /roles/{roleId}:
+    get:
+      summary: 역할 상세 정보 조회
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 역할 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+
+    put:
+      summary: 역할 정보 수정
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleUpdate"
+      responses:
+        "200":
+          description: 역할 정보 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+
+    delete:
+      summary: 역할 삭제
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 역할 삭제 성공
+
+  /roles/{roleId}/users:
+    get:
+      summary: 역할이 할당된 사용자 목록
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: 사용자 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /roles/{roleId}/groups:
+    get:
+      summary: 역할이 할당된 그룹 목록
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: 그룹 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+
+  # 클라이언트 역할 관리 API
+  /clients/{clientId}/roles:
+    get:
+      summary: 클라이언트 역할 목록 조회
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: 클라이언트 역할 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+
+    post:
+      summary: 클라이언트 역할 생성
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleCreate"
+      responses:
+        "201":
+          description: 클라이언트 역할 생성 성공
+
+  /clients/{clientId}/roles/{roleId}:
+    get:
+      summary: 클라이언트 역할 상세 정보
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 클라이언트 역할 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+
+    put:
+      summary: 클라이언트 역할 수정
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleUpdate"
+      responses:
+        "200":
+          description: 클라이언트 역할 수정 성공
+
+    delete:
+      summary: 클라이언트 역할 삭제
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 클라이언트 역할 삭제 성공
+
+  # 감사 및 모니터링 API
+  /audit/events:
+    get:
+      summary: 감사 이벤트 조회
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          description: 특정 사용자의 이벤트만 조회
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              [
+                LOGIN,
+                LOGOUT,
+                REGISTER,
+                UPDATE_PROFILE,
+                UPDATE_PASSWORD,
+                SEND_RESET_PASSWORD,
+                UPDATE_TOTP,
+                REMOVE_TOTP,
+                VERIFY_EMAIL,
+                SEND_VERIFY_EMAIL,
+                SEND_IDENTITY_PROVIDER_LINK,
+                SEND_IDENTITY_PROVIDER_LINK_ERROR,
+                RESET_PASSWORD,
+                RESET_PASSWORD_ERROR,
+                IDENTITY_PROVIDER_LINK_ACCOUNT,
+                IDENTITY_PROVIDER_LINK_ACCOUNT_ERROR,
+                UPDATE_CONSENT,
+                UPDATE_CONSENT_ERROR,
+                REVOKE_GRANT,
+                REVOKE_GRANT_ERROR,
+                LOGIN_ERROR,
+                REGISTER_ERROR,
+                LOGOUT_ERROR,
+                UPDATE_PROFILE_ERROR,
+                UPDATE_PASSWORD_ERROR,
+                CUSTOM_REQUIRED_ACTION,
+                CUSTOM_REQUIRED_ACTION_ERROR,
+                EXECUTE_ACTIONS,
+                EXECUTE_ACTIONS_ERROR,
+                EXECUTE_ACTION_TOKEN,
+                EXECUTE_ACTION_TOKEN_ERROR,
+                CLIENT_LOGIN,
+                CLIENT_LOGIN_ERROR,
+                RESTART_AUTHENTICATION,
+                RESTART_AUTHENTICATION_ERROR,
+                INVALIDATE_ALL_SESSIONS,
+                IDENTITY_PROVIDER_POST_LOGIN,
+                IDENTITY_PROVIDER_POST_LOGIN_ERROR,
+                IMPERSONATE,
+                IMPERSONATE_ERROR,
+                DELETE_ACCOUNT,
+                DELETE_ACCOUNT_ERROR,
+                UPDATE_EMAIL,
+                UPDATE_EMAIL_ERROR,
+              ]
+          description: 이벤트 타입 필터
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: 시작 날짜
+        - name: toDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: 종료 날짜
+        - name: first
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: max
+          in: query
+          schema:
+            type: integer
+            default: 100
+      responses:
+        "200":
+          description: 감사 이벤트 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    time:
+                      type: integer
+                      format: int64
+                    type:
+                      type: string
+                    realmId:
+                      type: string
+                    clientId:
+                      type: string
+                    userId:
+                      type: string
+                    sessionId:
+                      type: string
+                    ipAddress:
+                      type: string
+                    error:
+                      type: string
+                    details:
+                      type: object
+
+  /statistics/users:
+    get:
+      summary: 사용자 통계 정보
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [day, week, month, year]
+            default: month
+          description: 통계 기간
+      responses:
+        "200":
+          description: 사용자 통계
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalUsers:
+                    type: integer
+                  activeUsers:
+                    type: integer
+                  newUsers:
+                    type: integer
+                  loginCount:
+                    type: integer
+                  groupDistribution:
+                    type: object
+                    additionalProperties:
+                      type: integer
+
+  # 대량 작업 API
+  /bulk/users/import:
+    post:
+      summary: 사용자 대량 가져오기
+      description: CSV 또는 JSON 파일을 통한 사용자 대량 가져오기
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 사용자 데이터 파일 (CSV 또는 JSON)
+                skipIfExists:
+                  type: boolean
+                  default: true
+                  description: 이미 존재하는 사용자 건너뛰기
+      responses:
+        "200":
+          description: 가져오기 결과
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalProcessed:
+                    type: integer
+                  successCount:
+                    type: integer
+                  failureCount:
+                    type: integer
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        line:
+                          type: integer
+                        error:
+                          type: string
+                        data:
+                          type: object
+
+  /bulk/users/export:
+    get:
+      summary: 사용자 대량 내보내기
+      parameters:
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [csv, json]
+            default: csv
+        - name: groupId
+          in: query
+          schema:
+            type: string
+          description: 특정 그룹의 사용자만 내보내기
+      responses:
+        "200":
+          description: 사용자 데이터 파일
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
