@@ -2,7 +2,7 @@
 layout: post
 title: Vector DB를 활용한 문서 지식베이스 구축 완벽 가이드
 author: jblim0125
-date: 2025-08-08
+date: 2025-08-16
 category: 2025
 tags: [LLM, RAG, LangGraph, Vector DB, PDF, Embedding] 
 ---
