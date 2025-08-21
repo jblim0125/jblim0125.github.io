@@ -2,7 +2,7 @@
 layout: post
 title: 문서 목차 패턴 가져오기
 author: jblim0125
-date: 2025-08-23
+date: 2025-08-22
 category: 2025
 tags: [LLM, RAG, LangGraph, TOC] 
 ---
