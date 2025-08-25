@@ -1,3 +1,12 @@
+---
+layout: post
+title: Golang 을 이용한 웹서버 플랫폼
+author: jblim0125
+date: 2025-08-25
+category: 2025
+tags: [Golang, EchoPlatform] 
+---
+
 # Web-Server Platform Sample (Golang 1.16)
 
 Go 언어를 이용한 웹서버 샘플  
@@ -63,7 +72,7 @@ Go 언어를 이용한 웹서버 샘플
   * ETC...  
 
 참고용 그림( 이 프로젝트 코드와 관계는 없다. )
-![Arch Img](layer_arch.png)
+![Arch Img](/assets/images/2025-q3/golang-web-platform/layer_arch.png)
 
 ## 클린 아키텍처, 디펜던시 의존성
 
@@ -182,7 +191,7 @@ Go 언어를 이용한 웹서버 샘플
 
 5. 참고  
     참고용 그림  
-    ![Arch Img](arch.png)
+    ![Arch Img](/assets/images/2025-q3/golang-web-platform/arch.png)
 
     위와 같이 상위 계층은 UseCase를 통해 하위 계층을 잘 알고 있어야 하지만
     UseCase를 구현하는 하위 계층에서는 기능 구현에 초점이 맞추어지며 상위 계층에 대해서
@@ -229,13 +238,13 @@ Path Route 설정이 추가되어야 한다.
 * 단위 테스트  
     설계 단계에서 우리는 관심사(업무)별 계층을 분리하고 인터페이스로 실 구현체와의 연결성을 제거하였다.
     그러나 아래 그림과 같이 유닛 테스트를 진행 시 service, repository 객체가 필요하다.
-    ![UnitTest1Img](unit_test-1.png)
+    ![UnitTest1Img](/assets/images/2025-q3/golang-web-platform/unit_test-1.png)
     위와 같은 문제를 mockery를 이용해 자동으로 mock 생성하여 처리한다.  
     mockery는 각 객체에서 정의한 의존성(type xxx interface{})내용을 기반으로 mock을 생성하며,
     mock object 설정을 이용해 원하는 결과를 반환하도록 설정이 가능하다.  
     ( 즉, 테스트에 필요한 반환 값은 작성해야 한다. )
     결국 아래와 같이 의존성 부분을 mock으로 대체하고 원하는 코드의 테스트가 가능해진다.  
-    ![UnitTest2Img](unit_test-2.png)  
+    ![UnitTest2Img](/assets/images/2025-q3/golang-web-platform/unit_test-2.png)  
 
 * mockery 사용 방법  
   * install mockery  
@@ -281,8 +290,8 @@ mock객체 생성은 mockery 라이브러리를 이용한다.
 #No information about specific project should appear here
 
 #----- Default SonarQube server
-sonar.host.url=http://192.168.102.127:9000/
-sonar.login=2a09a7d77a7c54c94b33b5a7270b30907d023127
+sonar.host.url='soanr url'
+sonar.login='sonar access key'
 
 # #----- Default source code encoding
 sonar.sourceEncoding=UTF-8
@@ -376,6 +385,4 @@ func (userController *UserController) GetUser(c echo.Context) error {
 
 ### 사용법
 
-```sh
-http://localhost:8395/swagger/index.html
-```
+[swagger ui](http://localhost:8395/swagger/index.html)

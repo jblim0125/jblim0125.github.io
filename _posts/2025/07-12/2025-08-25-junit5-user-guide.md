@@ -1,4 +1,11 @@
-# JUnit 5 User Guide
+---
+layout: post
+title: JUnit5 사용자 가이드 번역본
+author: jblim0125
+date: 2025-08-25
+category: 2025
+tags: [JUnit5] 
+---
 
 ## 1. Overview
 
@@ -1468,13 +1475,3 @@ version : ....
         return Stream.of("apple", "banana");
     }
     ```
-
-### 2.17. Test Templates
-
-### 2.18. Dynamic Tests
-
-### 2.19. Timeouts
-
-### 2.20. Parallel Execution
-
-### 2.21. Built-in Extensions
