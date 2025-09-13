@@ -139,3 +139,28 @@
 샘플 데이터 제공은 어렵다.
 하드웨어구성에 대한 상세 요구사항을 전달해야 함
 다음엔 시연
+
+
+
+
+keycloak 과 연동하여
+group과 user 정보를 설정할 수 있는 restapi 를 만들어줘
+/api-gateway/api/users
+조회, 생성, 수정, 삭제, 패스워드 설정
+
+현재 user metadata 는 다음과 같음
+attributes
+ - email
+      "group": "user-metadata",
+ - nickname
+      "group": "user-metadata",
+ - attributes
+      "group": "user-metadata",
+      "multivalued": true
+```
+
+/api-gateway/api/groups
+생성, 수정, 삭제, 그룹 트리 설정
+사용자 할당, 해제
+
+
