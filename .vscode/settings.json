@@ -20,12 +20,12 @@
   "css.validate": false,
   "scss.validate": false,
   "less.validate": false,
-  // Stylint extension settings
-  "stylelint.snippet": ["css", "scss"],
-  "stylelint.validate": ["css", "scss"],
   // Run tasks in macOS
   "terminal.integrated.profiles.osx": {
     "zsh": { "path": "/bin/zsh", "args": ["-l", "-i"] }
   },
-  "atlascode.bitbucket.enabled": false
+  "atlascode.bitbucket.enabled": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

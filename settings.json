@@ -1,0 +1,696 @@
+{
+  // ========================================
+  // 파일 기본 설정
+  // ========================================
+  // 파일 인코딩 설정 (UTF-8 기본)
+  "files.encoding": "utf8",
+  // 줄 끝 문자 자동 감지 (Mac/Linux 호환)
+  "files.eol": "\n",
+  // 파일 저장 시 자동 trim (공백 제거)
+  "files.trimTrailingWhitespace": true,
+  // 파일 끝에 빈 줄 자동 추가
+  "files.insertFinalNewline": true,
+  // 자동 저장 (1초 지연)
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  // ========================================
+  // 편집기 UI/UX 설정
+  // ========================================
+  "editor.formatOnSave": false,
+  // 미니맵 표시
+  "editor.minimap.enabled": false,
+  // 줄 번호 표시
+  "editor.lineNumbers": "on",
+  "editor.glyphMargin": true,
+  // 코드 폴딩
+  "editor.folding": true,
+  "editor.foldingStrategy": "indentation",
+  // Bracket 가이드 설정
+  // 브래킷 쌍 색상 표시 활성화 - 괄호, 중괄호 색상 설정 on/off
+  "editor.bracketPairColorization.enabled": true,
+  // 브래킷 타입별 독립 색상 풀 사용 - 괄호, 중괄호 색상 분리 설정 - on/off
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  // 브래킷 쌍 가이드 표시 - 노란색, 보라색 가이드 라인이 보이도록 설정 됨.
+  // 옵션: "active" | "all" | false
+  "editor.guides.bracketPairs": false,
+  // 활성 브래킷 쌍 강조 표시 - 노란색/보라색 가이드 라인이 보다 강조되어서 나옴.
+  "editor.guides.highlightActiveBracketPair": false,
+  // 수평 브래킷 쌍 가이드 표시
+  // 옵션: "active" | "all" | false
+  "editor.guides.bracketPairsHorizontal": false,
+  // 들여쓰기 가이드 표시
+  "editor.guides.indentation": true,
+  // 활성 들여쓰기 레벨 강조 (커서가 있는 블록의 들여쓰기 레벨 강조)
+  "editor.guides.highlightActiveIndentation": "always",
+  // 줄 끝 표시
+  "editor.renderWhitespace": "selection",
+  // 들여쓰기 설정 (전역 기본값)
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  // 폰트 설정
+  "editor.fontSize": 13,
+  "editor.fontFamily": "D2Coding",
+  "debug.console.fontFamily": "D2Coding",
+  "editor.inlineSuggest.fontFamily": "D2Coding",
+  "editor.codeLensFontFamily": "D2Coding",
+  // 커서 스타일
+  "editor.cursorStyle": "line-thin",
+  // 정의로 이동 시 peek 정의 사용 (더 나은 UX)
+  "editor.peekWidgetDefaultFocus": "tree",
+  "editor.gotoLocation.multipleDefinitions": "peek",
+  "editor.gotoLocation.multipleDeclarations": "peek",
+  "editor.gotoLocation.multipleImplementations": "peek",
+  "editor.gotoLocation.multipleReferences": "peek",
+  // ========================================
+  // 파일 탐색기 설정
+  // ========================================
+  "explorer.confirmDragAndDrop": false,
+  "explorer.autoReveal": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.db": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.s3db": "${capture}.${extname}-*"
+  },
+  // ========================================
+  // 코드 액션 및 자동 완성 설정
+  // ========================================
+  // 저장 시 자동 액션 (전역 설정, 파일별로 override 가능)
+  "editor.codeActionsOnSave": {
+    // 저장 시 import 문 자동 정리
+    "source.organizeImports": "explicit",
+    // 저장 시 자동 수정 가능한 문제들을 일괄 수정
+    "source.fixAll": "never"
+    // 옵션:
+    // "explicit": 명시적으로 설정된 경우에만 실행
+    // "always": 항상 실행
+    // "never": 실행하지 않음
+  },
+  // 자동 완성 제안 표시
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "on",
+    "strings": "on"
+  },
+  "editor.suggestSelection": "first",
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  // 스니펫 제안
+  "editor.snippetSuggestions": "bottom",
+  // ========================================
+  // Java 설정
+  // ========================================
+  // Java Language Server 설정
+  // "java.jdt.ls.java.home": "/Users/jblim/Library/Java/JavaVirtualMachines/temurin-21.0.7/Contents/Home",
+  // 이거 설정 에러임
+  // "java.jdt.ls.vmargs": [
+  //   "-javaagent:/Users/jblim/.m2/repository/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar",
+  //   "-Xms256m",
+  //   "-Xmx8g",
+  //   "-XX:+UseG1GC",
+  //   "-XX:+UseParallelGC",
+  //   "-XX:MaxGCPauseMillis=200",
+  //   "-XX:+UseStringDeduplication",
+  //   "-Dfile.encoding=UTF-8",
+  //   "-Djava.import.generatesMetadataFilesAtProjectRoot=true"
+  // ].join(" "),
+  "java.jdt.ls.lombokSupport.enabled": true,
+  "java.jdt.ls.androidSupport.enabled": "off",
+  "java.server.launchMode": "Standard",
+  // 옵션: "Standard" | "LightWeight" | "Hybrid"
+  "java.sharedIndexes.enabled": "on",
+  "java.editor.reloadChangedSources": "auto",
+  // Java 빌드 설정
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.autobuild.enabled": true,
+  "java.maxConcurrentBuilds": 2,
+  // Gradle 설정
+  "java.import.gradle.enabled": true,
+  "java.import.gradle.offline.enabled": false,
+  "java.import.gradle.wrapper.enabled": true,
+  "java.import.gradle.annotationProcessing.enabled": true,
+  "java.import.generatesMetadataFilesAtProjectRoot": true,
+  // 파라미터 보기 설정
+  "java.inlayHints.parameterNames.enabled": "literals",
+  "java.inlayHints.parameterTypes.enabled": false,
+  // 프로젝트 경로 설정
+  "java.project.sourcePaths": [
+    "src/main/java",
+    "src/test/java"
+  ],
+  "java.project.outputPath": "build/classes/java/main",
+  "java.configuration.runtimes": [],
+  // Java 코드 완성 설정
+  "java.completion.guessMethodArguments": "insertBestGuessedArguments",
+  "java.completion.favoriteStaticMembers": [
+    "org.junit.Assert.*",
+    "org.junit.Assume.*",
+    "org.junit.jupiter.api.Assertions.*",
+    "org.junit.jupiter.api.Assumptions.*",
+    "org.junit.jupiter.api.DynamicContainer.*",
+    "org.junit.jupiter.api.DynamicTest.*",
+    "org.mockito.Answers.*",
+    "org.mockito.ArgumentMatchers.*",
+    "org.mockito.Mockito.*"
+  ],
+  // Java 디버깅 설정
+  "java.debug.settings.enableRunDebugCodeLens": true,
+  "java.debug.settings.hotCodeReplace": "manual",
+  "java.debug.settings.vmArgs": "-Dfile.encoding=utf-8",
+  // Java 포맷터 설정
+  "java.format.enabled": true,
+  "java.format.settings.url": "/Users/jblim/Documents/intellij-java-format.xml",
+  "java.format.settings.profile": "IntelliJ-Java",
+  // 참조 찾기 시 디컴파일된 소스 포함 (기본값 true, 디컴파일된 소스 사용)
+  "java.referencesCodeLens.enabled": false,
+  // "java.contentProvider.preferred": null,
+  "java.references.includeDecompiledSources": true,
+  // ========================================
+  // 파일 타입별 포맷터 설정
+  // ========================================
+  "[java]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "redhat.java",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    },
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
+  "markdownlint.run": "onSave",
+  "markdownlint.config": {
+    // 헤딩 스타일 : atx : 앞 # 사용, atx_close: 앞, 뒤 # 사용
+    "MD003": {
+      "style": "atx"
+    },
+    // 목록은 '-' 사용
+    "MD004": {
+      "style": "dash"
+    },
+    // 들여쓰기 4 space
+    "MD007": {
+      "indent": 4
+    },
+    "MD013": {
+      // 기본 80자 제한
+      "line_length": 120,
+      "ignore_urls": true
+    },
+    // 헤딩 끝에 구두점 금지.
+    "MD026": {
+      "punctuation": ".,;:!"
+    },
+    "MD024": {
+      "siblings_only": true
+    },
+    "no-hard-tabs": false
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.autoClosingBrackets": "never",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.wordWrap": "on",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    }
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true
+  },
+  "[yml]": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[makefile]": {
+    "editor.tabSize": 8,
+    // Makefile은 탭 필수
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  "[shellscript]": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "files.eol": "\n"
+    // Linux 호환성
+  },
+  "[dockerfile]": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
+  // "[github-actions-workflow]": {
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  //   "editor.insertSpaces": true,
+  //   "editor.tabSize": 2,
+  //   "editor.detectIndentation": false,
+  //   "editor.autoIndent": "advanced",
+  //   "editor.formatOnSave": true,
+  //   "editor.quickSuggestions": {
+  //     "other": true,
+  //     "comments": false,
+  //     "strings": true
+  //   },
+  //   "editor.quickSuggestionsDelay": 100,
+  //   "editor.renderWhitespace": "boundary",
+  //   "editor.guides.indentation": true,
+  //   "editor.bracketPairColorization.enabled": true,
+  //   "editor.guides.bracketPairs": false,
+  //   "editor.wordWrap": "off",
+  //   "editor.autoClosingBrackets": "always",
+  //   "editor.autoClosingQuotes": "always",
+  //   "editor.selectionHighlight": true
+  // },
+  // ========================================
+  // 언어별 추가 설정
+  // ========================================
+  // Python 설정
+  "python.testing.pytestEnabled": true,
+  "isort.args": [
+    "--profile",
+    "black"
+  ],
+  // YAML 설정
+  // "yaml.schemas": {
+  //   "kubernetes": [
+  //     "**/k8s/**/*.yaml",
+  //     "**/k8s/**/*.yml",
+  //     "**/kubernetes/**/*.yaml",
+  //     "**/kubernetes/**/*.yml"
+  //   ]
+  // },
+  "yaml.format.enable": true,
+  "yaml.format.singleQuote": false,
+  "yaml.format.bracketSpacing": true,
+  "yaml.format.proseWrap": "preserve",
+  // JSON 설정
+  // "json.schemas": [],
+  "json.format.enable": true,
+  // Markdown 설정
+  "markdown-preview-enhanced.enablePreviewZenMode": false,
+  // node js
+  "debug.javascript.autoAttachFilter": "smart",
+  // ========================================
+  // 검색 및 파일 제외 설정
+  // ========================================
+  // 검색에서 제외할 파일/폴더
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/.gradle": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.git": true,
+    "**/target": true,
+    "**/.idea": true,
+    "**/.vscode": true
+  },
+  // 파일 탐색기에서 제외할 파일/폴더
+  "files.exclude": {
+    "**/.git": true,
+    "**/.idea": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/*.class": false
+  },
+  // ========================================
+  // Git 설정
+  // ========================================
+  "git.enabled": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.inputValidation": true,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.maxComputationTime": 0,
+  // ========================================
+  // Vim 설정
+  // ========================================
+  // Vim 커서 스타일
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.normal": "block",
+  "vim.cursorStylePerMode.replace": "block",
+  "vim.leader": ",",
+  // Vim 입력법 자동 전환
+  "vim.autoSwitchInputMethod.enable": true,
+  "vim.autoSwitchInputMethod.defaultIM": "com.apple.keylayout.ABC",
+  "vim.autoSwitchInputMethod.obtainIMCmd": "/opt/homebrew/bin/im-select",
+  "vim.autoSwitchInputMethod.switchIMCmd": "/opt/homebrew/bin/im-select com.apple.keylayout.ABC",
+  // Vim 키 바인딩
+  "vim.useCtrlKeys": true,
+  "vim.useSystemClipboard": true,
+  // Vim 검색 설정
+  "vim.incsearch": true,
+  "vim.hlsearch": true,
+  "vim.ignorecase": true,
+  "vim.smartcase": true,
+  "vim.history": 1000,
+  // Vim 폴딩 설정 (커서 이동 시 자동으로 폴딩이 풀리지 않도록)
+  "vim.foldfix": true,
+  // Vim 키 핸들링
+  "vim.handleKeys": {
+    "<C-a>": false
+  },
+  // Vim 키 바인딩 (Normal 모드)
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      // gd: 정의로 이동 (일반적인 vim 스타일)
+      "before": [
+        "g",
+        "d"
+      ],
+      "commands": [
+        "editor.action.revealDefinition"
+      ]
+    },
+    {
+      // gD: 선언으로 이동
+      "before": [
+        "g",
+        "D"
+      ],
+      "commands": [
+        "editor.action.revealDeclaration"
+      ]
+    },
+    {
+      // gy: 형식 정의로 이동
+      "before": [
+        "g",
+        "y"
+      ],
+      "commands": [
+        "editor.action.peekTypeDefinition"
+      ]
+    },
+    {
+      // gi: 구현으로 이동
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      // gr: 참조로 이동
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.goToReferences"
+      ]
+    },
+    {
+      // K: 정의 미리보기 (Hover)
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<C-t>"
+      ],
+      "commands": [
+        "workbench.action.navigateBack"
+      ]
+    },
+    {
+      "before": [
+        "<C-o>"
+      ],
+      "commands": [
+        "workbench.action.navigateBack"
+      ]
+    },
+    {
+      "before": [
+        "<C-i>"
+      ],
+      "commands": [
+        "workbench.action.navigateForward"
+      ]
+    },
+    {
+      "before": [
+        "leader",
+        " "
+      ],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b"
+      ],
+      "commands": [
+        "editor.debug.action.toggleBreakpoint"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "v"
+      ],
+      "commands": [
+        "workbench.action.splitEditorLeft"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "commands": [
+        "workbench.action.splitEditorDown"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindings": [],
+  // Vim 키 바인딩 (Visual 모드)
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "p"
+      ],
+      "after": [
+        "p",
+        "g",
+        "v",
+        "y"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.moveLinesUpAction"
+      ]
+    },
+    {
+      "before": [
+        "J"
+      ],
+      "commands": [
+        "editor.action.moveLinesDownAction"
+      ]
+    },
+    {
+      "before": [
+        "<C-t>"
+      ],
+      "commands": [
+        "workbench.action.navigateBack"
+      ]
+    },
+    {
+      "before": [
+        "<C-o>"
+      ],
+      "commands": [
+        "workbench.action.navigateBack"
+      ]
+    },
+    {
+      "before": [
+        "<C-i>"
+      ],
+      "commands": [
+        "workbench.action.navigateForward"
+      ]
+    }
+  ],
+  "vim.statusBarColorControl": true,
+  // ========================================
+  // 터미널 설정
+  // ========================================
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.fontFamily": "D2Coding",
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.inheritEnv": true,
+  // ========================================
+  // 워크벤치 설정
+  // ========================================
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff"
+  },
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.tree.indent": 16,
+  "search.actionsPosition": "auto",
+  // ========================================
+  // 성능 최적화 설정
+  // ========================================
+  // 파일 감시 제한 (Mac에서 파일 수 제한 이슈 방지)
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/build/**": true,
+    "**/.gradle/**": true,
+    "**/__pycache__/**": true,
+    "**/.pytest_cache/**": true,
+    "**/target/**": true
+  },
+  // ========================================
+  // Extension 설정
+  // ========================================
+  // Gradle 설정
+  "gradle.autoDetect": "on",
+  "gradle.nestedProjects": true,
+  "gradle.javaDebug.cleanOutput": true,
+  // Docker 설정
+  "docker.extension.dockerEngineAvailabilityPrompt": false,
+  "docker.extension.enableComposeLanguageServer": false,
+  // SonarLint 설정
+  "sonarlint.pathToNodeExecutable": "/opt/homebrew/opt/node@20/bin/node",
+  // Makefile 설정
+  "makefile.configureOnOpen": false,
+  // ========================================
+  // Cursor 특화 설정
+  // ========================================
+  // 파일 제외 설정 (AI가 참조하지 않을 파일)
+  "cursor.general.globalCursorIgnoreList": [
+    "**/*.key",
+    "**/*.pem",
+    "**/*.pfx",
+    "**/*.p12",
+    "**/*.crt",
+    "**/*.cer",
+    "**/id_rsa",
+    "**/id_dsa",
+    "**/.ssh/id_*",
+    "**/node_modules/**",
+    "**/build/**",
+    "**/.gradle/**",
+    "**/__pycache__/**",
+    "**/.pytest_cache/**",
+    "**/target/**"
+  ],
+  // ========================================
+  // 원격 SSH 설정
+  // ========================================
+  "remote.SSH.remotePlatform": {
+    "bigdata@192.168.101.129": "linux",
+    "192.168.105.51": "linux",
+    "221.144.103.21": "linux"
+  },
+  // ========================================
+  // Telemetry 설정
+  // ========================================
+  "redhat.telemetry.enabled": false,
+  "dbcode.connections": [
+    {
+      "connectionId": "CZfqRtCtKSsJWo-HGrvp1",
+      "name": "portal-db",
+      "driver": "postgres",
+      "connectionType": "host",
+      "host": "192.168.105.51",
+      "port": 5432,
+      "ssl": false,
+      "username": "mobigen",
+      "password": "",
+      "savePassword": "secretStorage",
+      "database": "voice_phishing_db",
+      "readOnly": false,
+      "postConnectionSqlType": "inline",
+      "connectionTimeout": 30
+    }
+  ],
+  "cursor.composer.textSizeScale": 1.15,
+  "sonarlint.focusOnNewCode": false,
+  "sonarlint.connectedMode.connections.sonarqube": [
+    {
+      "serverUrl": "http://192.168.105.51:9000",
+      "connectionId": "http-192-168-105-51-9000"
+    }
+  ],
+  "workbench.editor.enablePreview": false,
+}

@@ -7,6 +7,9 @@
     - [1.4. 테스트](#14-테스트)
   - [3. 참고](#3-참고)
     - [모비젠 연구 내용](#모비젠-연구-내용)
+  - [1. 아키텍처 구조와 설정 방법 설명](#1-아키텍처-구조와-설정-방법-설명)
+  - [2. 데이터](#2-데이터)
+  - [3. API 문서](#3-api-문서)
 
 ## 1. 업무 리스트
 
@@ -170,3 +173,127 @@ attributes
 
 1. 스팸정책팀의 데이터베이스를 직접 연동할 수 없음
   -> 따라서 가명처리 서비스에서 데이터를 저장해야 함. 
+
+
+논현IDC 
+
+
+안녕하세요.책임님!
+
+UI에서 각 서비스 API를 연동에 필요한 정보였던 것 같은데, 
+일단 아래 정보들이 필요할 것 같습니다.
+
+## 1. 아키텍처 구조와 설정 방법 설명
+
+Nginx -> API Gateway -> Service(...) 형태로 구성되어 있습니다.
+
+1. Nginx Routing 설정
+192.168.105.51:8080/ -> Api Gateway
+192.168.105.51:8080/auth -> Keycloak 
+
+2. Api Gateway 설정
+API Gateway 의 라우팅 패스를 설정 가능 함.
+/{name} -> http://{container-endpoint}/ 
+
+3. API Gateway 설정 화면
+192.168.105.51:8080/settings
+
+## 2. 데이터
+
+- 가명처리 데이터 테이블 스키마
+
+| 컬럼명          | 데이터 타입  | 제약조건                            | 설명               |
+| --------------- | ------------ | ----------------------------------- | ------------------ |
+| log_id          | VARCHAR(50)  | PRIMARY KEY (복합키)                | 로그 ID            |
+| data_type       | VARCHAR(20)  | PRIMARY KEY (복합키)                | 데이터 타입        |
+| file_path       | VARCHAR(200) |                                     | 파일 경로          |
+| file_name       | VARCHAR(100) |                                     | 파일명             |
+| file_size_bytes | BIGINT       |                                     | 파일 크기 (바이트) |
+| created_at      | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP | 생성 시간          |
+| updated_at      | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP | 수정 시간          |
+
+- 가명처리 데이터 JSON
+JSON 포맷의 음성 to 텍스트 데이터의 가명처리 결과 
+
+- 통계 데이터
+  - 데이터 수집 통계 (5분 단위)
+    | 컬럼명              | 데이터 타입 | 제약조건            | 설명                            |
+    | ------------------- | ----------- | ------------------- | ------------------------------- |
+    | DATE                | TIMESTAMP   | NOT NULL            | 통계 수집 시간                  |
+    | input_voice         | BIGINT      | NOT NULL, DEFAULT 0 | 음성 입력 건수                  |
+    | input_stt           | BIGINT      | NOT NULL, DEFAULT 0 | STT 입력 건수                   |
+    | save_file           | BIGINT      | NOT NULL, DEFAULT 0 | 파일 저장 건수                  |
+    | save_database       | BIGINT      | NOT NULL, DEFAULT 0 | 데이터베이스 저장 건수          |
+    | update_database     | BIGINT      | NOT NULL, DEFAULT 0 | 데이터베이스 업데이트 건수      |
+    | err_input_voice     | BIGINT      | NOT NULL, DEFAULT 0 | 음성 입력 오류 건수             |
+    | err_input_stt       | BIGINT      | NOT NULL, DEFAULT 0 | STT 입력 오류 건수              |
+    | err_save_file       | BIGINT      | NOT NULL, DEFAULT 0 | 파일 저장 오류 건수             |
+    | err_save_database   | BIGINT      | NOT NULL, DEFAULT 0 | 데이터베이스 저장 오류 건수     |
+    | err_update_database | BIGINT      | NOT NULL, DEFAULT 0 | 데이터베이스 업데이트 오류 건수 |
+
+  - 데이터 가명처리 (5분 단위)
+    | 컬럼명                           | 타입      | 설명                    |
+    | -------------------------------- | --------- | ----------------------- |
+    | `DATE`                           | TIMESTAMP | 기본 키                 |
+    | `triggered`                      | BIGINT    | 트리거된 횟수           |
+    | `dataload_success`               | BIGINT    | 데이터 로드 성공 수     |
+    | `dataload_json_processing_error` | BIGINT    | JSON 파싱 오류 수       |
+    | `dataload_queue_full_error`      | BIGINT    | 큐 가득 참 오류 수      |
+    | `file_download_success`          | BIGINT    | 파일 다운로드 성공 수   |
+    | `file_download_error`            | BIGINT    | 파일 다운로드 오류 수   |
+    | `text_pseudo_success`            | BIGINT    | 텍스트 가명처리 성공 수 |
+    | `text_pseudo_error`              | BIGINT    | 텍스트 가명처리 오류 수 |
+    | `image_pseudo_success`           | BIGINT    | 이미지 가명처리 성공 수 |
+    | `image_pseudo_error`             | BIGINT    | 이미지 가명처리 오류 수 |
+    | `voice_pseudo_success`           | BIGINT    | 음성 가명처리 성공 수   |
+    | `voice_pseudo_error`             | BIGINT    | 음성 가명처리 오류 수   |
+    | `file_upload_success`            | BIGINT    | 파일 업로드 성공 수     |
+    | `file_upload_error`              | BIGINT    | 파일 업로드 오류 수     |
+    | `data_save_success`              | BIGINT    | 데이터 저장 성공 수     |
+    | `data_save_error`                | BIGINT    | 데이터 저장 오류 수     |
+    | `search_index_success`           | BIGINT    | 검색 인덱스 성공 수     |
+    | `search_index_error`             | BIGINT    | 검색 인덱스 오류 수     |
+    | `update_original_success`        | BIGINT    | 원본 업데이트 성공 수   |
+    | `update_original_error`          | BIGINT    | 원본 업데이트 오류 수   |
+    | `file_cleanup_success`           | BIGINT    | 파일 정리 성공 수       |
+    | `file_cleanup_error`             | BIGINT    | 파일 정리 오류 수       |
+
+## 3. API 문서
+
+다음주에 전달드리겠습니다. 
+
+
+
+책임님 문의사항이 있습니다0.! 
+
+현재 web-server 개발 관련하여 Backend Service API 연동 중에,  Spring Cloud OpenFeign을 통해 Backend Service API를 호출하는 작업을 진행하려 하는데, Backend Service들이 각각 컨테이너로 분산 배포되어있고, 확인하기 어려워서요. 
+정확한 정보가 필요할 것 같아서 문의 드립니다.
+
+저는, 크게 2가지 서비스의 API 명세서가 필요할 것 같습니다:
+
+1. 가명데이터 목록 조회 관련 서비스
+
+- 가명처리된 데이터 목록 조회 API
+- 검색/필터링/정렬/페이징 기능
+
+2. 통계 및 모니터링 관련 서비스
+
+- 원본 데이터 수집 통계 API
+- 실시간 모니터링 데이터 API (Task, Queue 상태)
+- 파이프라인 처리 통계 API
+
+이 2개 서비스가 각각 어느 Backend Service에 위치해 있는지, 그리고 각 API의 상세 스펙을 확인할 수 있을까요?
+
+필요한 정보:
+
+- 담당 Backend Service 명 및 Base URL
+- API 엔드포인트
+- 요청 파라미터 (페이징: page, size / 정렬: sortBy, order / 필터: 날짜 범위, 데이터 유형 등)
+- 응답 데이터 형태 (JSON 스키마)
+- 필수/선택 파라미터 구분
+
+혹시 가능하시다면 각 API의 Swagger 문서나 API 명세서를 공유해주시면 정말 감사하겠습니다!
+
+바쁘신 와중에 번거롭게 해드려 죄송합니다. 검토 부탁드리겠습니다. 감사합니다!
+
+
