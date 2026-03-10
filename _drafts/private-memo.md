@@ -13,3 +13,9 @@
   - [x] 25년 2월 1일(60알)  
   - [x] 25년 4월 5일(60알)
   - [x] 25년 6월 5일(60알)
+
+
+## Atlassian 2단계 인증 키
+
+key : atlassian-key
+pass : EJ1E9NH76427ARR6NH1XDQW2
