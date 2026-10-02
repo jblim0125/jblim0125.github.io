@@ -10,8 +10,8 @@
 
 - Docker (Docker Desktop 등). 호스트에 Ruby 를 설치할 필요는 없다.
 
-Jekyll 은 `make` 가 띄우는 Docker 컨테이너(Ruby 3.3) 안에서 실행된다.
-Chirpy 7.x 는 Ruby 3.x 만 지원하고(Homebrew 기본 Ruby 는 4.x), 배포 CI 도 Ruby 3.3 을 쓰기 때문이다.
+Jekyll 은 `make` 가 띄우는 Docker 컨테이너(Ruby 3.4) 안에서 실행된다.
+Chirpy 7.x 는 Ruby 3.x 만 지원하고(Homebrew 기본 Ruby 는 4.x), 배포 CI 도 Ruby 3.4 를 쓰기 때문이다.
 
 ### 1.2. 명령
 
@@ -43,7 +43,7 @@ make install
 ```
 
 **이미지 pull 이 실패할 때.** 기본 이미지는 Docker Hub 익명 pull 한도를 피하려고 ECR 미러
-(`public.ecr.aws/docker/library/ruby:3.3`)를 쓴다. 다른 이미지를 쓰려면 `make serve RUBY_IMAGE=ruby:3.3` 처럼 넘긴다.
+(`public.ecr.aws/docker/library/ruby:3.4`)를 쓴다. 다른 이미지를 쓰려면 `make serve RUBY_IMAGE=ruby:3.4` 처럼 넘긴다.
 
 **`make drafts` 가 끝나지 않을 때.** Jekyll 은 `_drafts/` 안의 파일을 확장자와 상관없이 모두 글로 렌더링한다.
 1MB 이상의 큰 파일이 있으면 렌더링이 수 분 이상 걸린다. `.ipynb` 는 `_config.yml` 의 `exclude` 로 빌드에서 제외해 두었다.
@@ -132,6 +132,7 @@ tags: [Python, Logging]
 | `.devcontainer/`           | VS Code Dev Container 설정                                                   |
 | `_config.yml`              | 사이트 설정 (제목, 언어, 시간대, 댓글, 분석 등)                              |
 | `Gemfile`                  | Ruby 의존성 (Chirpy 테마 gem, html-proofer)                                  |
+| `Gemfile.lock`             | gem 버전 고정. 로컬 미리보기와 배포가 같은 버전을 쓴다                       |
 | `Makefile`                 | 로컬 실행 명령                                                               |
 | `_site/`, `.jekyll-cache/` | 빌드 결과물. git 에서 제외                                                   |
 
@@ -143,11 +144,17 @@ Chirpy 를 gem 으로 쓰기 때문에 레이아웃, include, 스타일 파일�
 
 `gh-pages` 브랜치에 push 하면 `.github/workflows/pages-deploy.yml` 이 다음을 실행한다.
 
-1. Ruby 3.3 으로 production 빌드
+1. Ruby 3.4 로 production 빌드
 2. html-proofer 로 내부 링크·이미지 검사 (`make test` 와 같은 검사)
 3. GitHub Pages 에 배포
 
 `README.md`, `LICENSE`, `.gitignore` 만 바뀐 push 는 배포를 실행하지 않는다.
+
+**gem 업데이트.** 배포는 `Gemfile.lock` 에 고정된 버전으로 빌드된다.
+테마나 gem 을 올릴 때는 `make shell` 에서 `bundle update` 를 실행하고, `make test` 로 확인한 뒤 `Gemfile.lock` 을 커밋한다.
+
+**Ruby 버전 변경.** `pages-deploy.yml` 의 `ruby-version` 과 `Makefile` 의 `RUBY_IMAGE` 를 함께 바꾼다.
+Ruby 버전이 바뀌면 네이티브 확장 gem 을 다시 빌드해야 하므로 `docker volume rm jblim-blog-bundle` 로 gem 캐시를 비우고 다시 설치한다.
 
 ## 5. 참고
 

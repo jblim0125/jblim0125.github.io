@@ -1,12 +1,12 @@
 # 로컬 미리보기용 Makefile
 #
-# Jekyll은 Docker 컨테이너(Ruby 3.3)에서 실행한다.
+# Jekyll은 Docker 컨테이너(Ruby 3.4)에서 실행한다.
 # - Chirpy 7.x는 Ruby ~> 3.1(3.x)만 지원하는데, Homebrew Ruby는 4.x다.
-# - GitHub Actions 배포(.github/workflows/pages-deploy.yml)도 Ruby 3.3을 쓴다.
+# - GitHub Actions 배포(.github/workflows/pages-deploy.yml)도 Ruby 3.4를 쓴다.
 # gem은 Docker 볼륨에 캐시되므로 설치는 최초 1회만 오래 걸린다.
 
 # Docker 공식 ruby 이미지의 ECR 미러 (Docker Hub 익명 pull 한도를 피하기 위함)
-RUBY_IMAGE ?= public.ecr.aws/docker/library/ruby:3.3
+RUBY_IMAGE ?= public.ecr.aws/docker/library/ruby:3.4
 PORT       ?= 4000
 BUNDLE_VOL ?= jblim-blog-bundle
 
