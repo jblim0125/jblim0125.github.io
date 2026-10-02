@@ -212,6 +212,8 @@ exclude:
   - tools
   - README.md
   - LICENSE
+  - Makefile
+  - "*.ipynb"
   - purgecss.js
   - rollup.config.js
   - "package*.json"
