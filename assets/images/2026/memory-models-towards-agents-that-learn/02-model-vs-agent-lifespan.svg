@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Model Release Gap and Agent Task Horizon</title>
+  <desc id="desc">An original conceptual chart showing decreasing model release gaps and increasing agent task horizons crossing around late 2026.</desc>
+  <rect width="1280" height="760" fill="#f8fafc"/>
+  <text x="86" y="88" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" fill="#1f2937">Model cadence vs. agent horizon</text>
+  <text x="86" y="126" font-family="Inter, Arial, sans-serif" font-size="21" fill="#596579">As task horizons grow, durable memory can outlive any single model.</text>
+
+  <line x1="150" y1="604" x2="1130" y2="604" stroke="#2f3a48" stroke-width="3"/>
+  <line x1="150" y1="604" x2="150" y2="188" stroke="#2f3a48" stroke-width="3"/>
+  <text x="650" y="670" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" fill="#394657">Time</text>
+  <text x="84" y="394" text-anchor="middle" transform="rotate(-90 84 394)" font-family="Inter, Arial, sans-serif" font-size="22" fill="#394657">Duration</text>
+
+  <path d="M180 238 C320 278 440 330 560 386 C710 456 870 520 1110 564" fill="none" stroke="#d4822f" stroke-width="8" stroke-linecap="round"/>
+  <path d="M180 570 C330 540 468 492 590 426 C732 350 892 282 1110 226" fill="none" stroke="#3978c2" stroke-width="8" stroke-linecap="round"/>
+
+  <line x1="655" y1="188" x2="655" y2="604" stroke="#7c8798" stroke-width="3" stroke-dasharray="12 12"/>
+  <rect x="530" y="152" width="250" height="48" rx="12" fill="#ffffff" stroke="#c9d2df"/>
+  <text x="655" y="183" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#4b5563">late 2026 crossing</text>
+
+  <rect x="800" y="214" width="270" height="84" rx="14" fill="#ffffff" stroke="#c7d4e4"/>
+  <line x1="826" y1="252" x2="890" y2="252" stroke="#3978c2" stroke-width="7" stroke-linecap="round"/>
+  <text x="912" y="259" font-family="Inter, Arial, sans-serif" font-size="20" fill="#2f4b6b">Agent task horizon</text>
+
+  <rect x="800" y="320" width="270" height="84" rx="14" fill="#ffffff" stroke="#e0cfbc"/>
+  <line x1="826" y1="358" x2="890" y2="358" stroke="#d4822f" stroke-width="7" stroke-linecap="round"/>
+  <text x="912" y="365" font-family="Inter, Arial, sans-serif" font-size="20" fill="#6e4b22">Model release gap</text>
+
+  <text x="180" y="635" font-family="Inter, Arial, sans-serif" font-size="18" fill="#596579">2025</text>
+  <text x="615" y="635" font-family="Inter, Arial, sans-serif" font-size="18" fill="#596579">2026</text>
+  <text x="1082" y="635" font-family="Inter, Arial, sans-serif" font-size="18" fill="#596579">2028</text>
+</svg>

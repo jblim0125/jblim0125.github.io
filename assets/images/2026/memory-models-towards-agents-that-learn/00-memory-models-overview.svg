@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Memory Models Overview</title>
+  <desc id="desc">An original overview diagram showing an agent learning loop with memory models, token-space memory, experience, and future tasks.</desc>
+  <rect width="1280" height="720" fill="#f7f8fb"/>
+  <rect x="72" y="66" width="1136" height="588" rx="28" fill="#ffffff" stroke="#d8dee9" stroke-width="2"/>
+  <text x="118" y="142" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="700" fill="#1f2937">Memory Models</text>
+  <text x="118" y="185" font-family="Inter, Arial, sans-serif" font-size="24" fill="#526071">Learning that compounds outside model weights</text>
+
+  <rect x="122" y="270" width="250" height="124" rx="18" fill="#e7f0ff" stroke="#8fb7f5" stroke-width="2"/>
+  <text x="247" y="324" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#1f4f8f">Experience</text>
+  <text x="247" y="358" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#35516f">tasks, feedback, traces</text>
+
+  <rect x="515" y="248" width="250" height="168" rx="22" fill="#edf7ef" stroke="#80be8a" stroke-width="2"/>
+  <text x="640" y="318" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#24623a">Memory Model</text>
+  <text x="640" y="354" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#3d6a49">create and curate</text>
+  <text x="640" y="382" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#3d6a49">durable context</text>
+
+  <rect x="908" y="270" width="250" height="124" rx="18" fill="#fff2de" stroke="#e7a94a" stroke-width="2"/>
+  <text x="1033" y="324" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#805000">Future Tasks</text>
+  <text x="1033" y="358" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#775b2a">better behavior</text>
+
+  <rect x="457" y="506" width="366" height="76" rx="18" fill="#f0edff" stroke="#a898eb" stroke-width="2"/>
+  <text x="640" y="553" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="700" fill="#51439b">Token-space Memory</text>
+
+  <path d="M372 332 H502" stroke="#627386" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M765 332 H894" stroke="#627386" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M640 416 V492" stroke="#627386" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M823 544 C1005 544 1070 464 1044 406" stroke="#8b6fd7" stroke-width="5" fill="none" marker-end="url(#arrowPurple)"/>
+  <path d="M457 544 C272 544 194 466 222 406" stroke="#8b6fd7" stroke-width="5" fill="none" marker-end="url(#arrowPurple)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#627386"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#8b6fd7"/>
+    </marker>
+  </defs>
+</svg>

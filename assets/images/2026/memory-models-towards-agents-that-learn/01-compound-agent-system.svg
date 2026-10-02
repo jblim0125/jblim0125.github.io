@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Compound Agent System</title>
+  <desc id="desc">An original diagram of a compound agent system where a memory model coordinates with coding, computer-use, and interaction models through token-space context.</desc>
+  <rect width="1280" height="760" fill="#fbfaf7"/>
+  <text x="92" y="92" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="700" fill="#1f2937">Compound self-improving agent</text>
+  <text x="92" y="130" font-family="Inter, Arial, sans-serif" font-size="22" fill="#596579">Token-space context connects specialized models.</text>
+
+  <circle cx="640" cy="382" r="126" fill="#ecf7ee" stroke="#72af7f" stroke-width="3"/>
+  <text x="640" y="366" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#225c36">Memory</text>
+  <text x="640" y="400" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#225c36">Model</text>
+  <text x="640" y="435" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" fill="#45664c">curates context</text>
+
+  <rect x="106" y="292" width="250" height="116" rx="18" fill="#eaf1ff" stroke="#8db0ed" stroke-width="2"/>
+  <text x="231" y="344" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="700" fill="#1f4a85">Experience</text>
+  <text x="231" y="376" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" fill="#3b5678">work traces and feedback</text>
+
+  <rect x="922" y="126" width="250" height="116" rx="18" fill="#fff2df" stroke="#e4aa53" stroke-width="2"/>
+  <text x="1047" y="177" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#7b510a">Coding Model</text>
+  <text x="1047" y="209" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" fill="#765a2d">general task solving</text>
+
+  <rect x="922" y="322" width="250" height="116" rx="18" fill="#f0edff" stroke="#a897ea" stroke-width="2"/>
+  <text x="1047" y="373" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#51439a">Computer-use</text>
+  <text x="1047" y="405" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" fill="#655d91">tools and interfaces</text>
+
+  <rect x="922" y="518" width="250" height="116" rx="18" fill="#e8f7f5" stroke="#69b8ad" stroke-width="2"/>
+  <text x="1047" y="569" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#17645c">Interaction</text>
+  <text x="1047" y="601" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" fill="#386c67">low-latency responses</text>
+
+  <path d="M356 350 H500" stroke="#69788a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M750 310 C815 225 852 190 910 184" stroke="#69788a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M766 382 H910" stroke="#69788a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M750 454 C815 539 852 574 910 576" stroke="#69788a" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M506 432 C412 508 304 500 244 420" stroke="#8b6fd7" stroke-width="4" fill="none" stroke-dasharray="10 10" marker-end="url(#arrowPurple)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#69788a"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#8b6fd7"/>
+    </marker>
+  </defs>
+</svg>
