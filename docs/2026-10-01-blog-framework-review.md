@@ -111,8 +111,8 @@ GitHub Pages 기본 빌드용 `github-pages` gem 은 Jekyll 3.10.0 에 고정돼
 
 - [x] **UI 한국어화.** `_config.yml` 의 `lang: ko` 를 `lang: ko-KR` 로 바꾼다. (2026-10-02 완료)
 - [x] **mermaid 렌더링.** 아래 두 글의 front matter 에 `mermaid: true` 를 추가한다. (2026-10-02 완료)
-- [ ] **Chirpy 버전 맞추기.** `Gemfile.lock` 을 커밋할지, 로컬만 업데이트할지 정한다.
-- [ ] **Ruby 3.4 로 올리기.** CI(`pages-deploy.yml`)와 `Makefile` 의 `RUBY_IMAGE` 를 3.4 로 바꾼다.
+- [x] **Chirpy 버전 맞추기.** `Gemfile.lock` 을 커밋할지, 로컬만 업데이트할지 정한다. (2026-10-02 완료: lock 커밋, Chirpy 7.6.0)
+- [x] **Ruby 3.4 로 올리기.** CI(`pages-deploy.yml`)와 `Makefile` 의 `RUBY_IMAGE` 를 3.4 로 바꾼다. (2026-10-02 완료)
 
 **UI 한국어화 상세.** Chirpy 에는 `ko-KR.yml` 로케일만 있다. `ko` 를 찾지 못하면 영어로 대체된다.
 빌드 결과에서 "Recently Updated", "Trending Tags" 가 영어로 나오는 것을 확인했다.
