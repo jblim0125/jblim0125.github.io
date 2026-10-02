@@ -109,8 +109,8 @@ GitHub Pages 기본 빌드용 `github-pages` gem 은 Jekyll 3.10.0 에 고정돼
 
 ## 6. Chirpy 를 유지할 때 할 일
 
-- [ ] **UI 한국어화.** `_config.yml` 의 `lang: ko` 를 `lang: ko-KR` 로 바꾼다.
-- [ ] **mermaid 렌더링.** 아래 두 글의 front matter 에 `mermaid: true` 를 추가한다.
+- [x] **UI 한국어화.** `_config.yml` 의 `lang: ko` 를 `lang: ko-KR` 로 바꾼다. (2026-10-02 완료)
+- [x] **mermaid 렌더링.** 아래 두 글의 front matter 에 `mermaid: true` 를 추가한다. (2026-10-02 완료)
 - [ ] **Chirpy 버전 맞추기.** `Gemfile.lock` 을 커밋할지, 로컬만 업데이트할지 정한다.
 - [ ] **Ruby 3.4 로 올리기.** CI(`pages-deploy.yml`)와 `Makefile` 의 `RUBY_IMAGE` 를 3.4 로 바꾼다.
 
